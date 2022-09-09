@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         setAction();
         navigationView.setNavigationItemSelectedListener(this);
-        googleSignIn();
     }
 
     private void googleSignIn() {

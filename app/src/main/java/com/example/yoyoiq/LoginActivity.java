@@ -2,7 +2,9 @@ package com.example.yoyoiq;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,6 +13,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.yoyoiq.LoginPojo.LoginResponse;
 import com.example.yoyoiq.LoginPojo.userLoginData;
 import com.example.yoyoiq.Model.UserData;
@@ -33,7 +40,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,6 +60,8 @@ public class LoginActivity extends AppCompatActivity {
     SessionManager sessionManager;
     List<userLoginData> list;
     SharedPreferences sharedPreferences;
+    String url="http://adminapp.tech/yoyoiq/ItsMe/all_apis.php?func=google_login";
+    String userEmail,userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, gso);
+
 
         initMethod();
         setAction();
@@ -102,14 +114,101 @@ public class LoginActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 task.getResult(ApiException.class);
-                navigateToSecondActivity();
+                googleSignInVerification();
             } catch (ApiException e) {
                 Toast.makeText(this, "Something went wrong !", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
+    private void googleSignInVerification() {
+        cmn.setProgressDialog("Please wait..","",LoginActivity.this,LoginActivity.this);
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc = GoogleSignIn.getClient(this, gso);
+        GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        if (googleSignInAccount != null) {
+            userName = googleSignInAccount.getDisplayName();
+            userEmail = googleSignInAccount.getEmail();
+            Uri photoUrl = googleSignInAccount.getPhotoUrl();
+            String id = googleSignInAccount.getId();
+
+        }
+
+        RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new com.android.volley.Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject=new JSONObject(response);
+                    String Message=jsonObject.getString("message")+userName;
+                    Log.d("Amit","Value "+Message);
+                    if(jsonObject.getString("message").equalsIgnoreCase("Welcome back ")){
+                        String userId=jsonObject.getString("userid");
+                        HelperData.UserName=userName;
+                        HelperData.UserEmail=userEmail;
+                        HelperData.UserId=userId;
+                        UserData userData=new UserData(userName,"",userEmail,userId);
+                        sessionManager.saveUser(userData);
+                        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                        Toast.makeText(LoginActivity.this, ""+jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        cmn.closeDialog(LoginActivity.this);
+                    }
+                    else if(jsonObject.getString("message").equalsIgnoreCase("Please update your profile")){
+                        Intent intent=new Intent(LoginActivity.this,RegisterDetails.class);
+                        startActivity(intent);
+                        gsc.signOut();
+                        Log.d("Amit","here2224 "+jsonObject.getString("message"));
+                        Toast.makeText(LoginActivity.this, ""+jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        finish();
+                        cmn.closeDialog(LoginActivity.this);
+
+                    }
+                    else if(jsonObject.getString("message").equalsIgnoreCase("Welcome back "+userName)){
+                        String userId=jsonObject.getString("userid");
+                        HelperData.UserName=userName;
+                        HelperData.UserEmail=userEmail;
+                        HelperData.UserId=userId;
+                        UserData userData=new UserData(userName,"",userEmail,userId);
+                        sessionManager.saveUser(userData);
+                        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                        Toast.makeText(LoginActivity.this, ""+jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        cmn.closeDialog(LoginActivity.this);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.d("Amit","here222 "+e);
+                }
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                cmn.closeDialog(LoginActivity.this);
+                Toast.makeText(LoginActivity.this, "Somethings Went Wrong....", Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", userEmail);
+                return params;
+            }
+
+        };
+        queue.add(stringRequest);
+
+    }
+
     private void navigateToSecondActivity() {
+
+
+
+
+
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.putExtra("checkData", true);
         startActivity(intent);
