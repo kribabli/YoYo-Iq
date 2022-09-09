@@ -48,6 +48,7 @@ public class ARAdapter extends RecyclerView.Adapter<ARAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ARAdapter.MyViewHolder holder, int position) {
         SquadsA listData = list.get(position);
+        holder.setIsRecyclable(false);
         holder.playerName.setText(listData.getShort_namePlayers());
         holder.playerCredit.setText(listData.getFantasy_player_rating());
         holder.country.setText(listData.getAbbr());

@@ -48,6 +48,7 @@ public class BOWLAdapter extends RecyclerView.Adapter<BOWLAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull BOWLAdapter.MyViewHolder holder, int position) {
         SquadsA listData = list.get(position);
+        holder.setIsRecyclable(false);
         holder.playerName.setText(listData.getShort_namePlayers());
         holder.playerCredit.setText(listData.getFantasy_player_rating());
         holder.country.setText(listData.getAbbr());

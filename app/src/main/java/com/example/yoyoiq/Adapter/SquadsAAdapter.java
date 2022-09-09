@@ -50,6 +50,7 @@ public class SquadsAAdapter extends RecyclerView.Adapter<SquadsAAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull SquadsAAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         SquadsA listData = list.get(position);
+        holder.setIsRecyclable(false);
         holder.playerName.setText(listData.getShort_namePlayers());
         holder.playerCredit.setText(listData.getFantasy_player_rating());
         holder.country.setText(listData.getAbbr());

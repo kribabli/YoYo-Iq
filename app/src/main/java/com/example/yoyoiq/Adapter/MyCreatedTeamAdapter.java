@@ -2,6 +2,7 @@ package com.example.yoyoiq.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,7 @@ public class MyCreatedTeamAdapter extends RecyclerView.Adapter<MyCreatedTeamAdap
     @Override
     public void onBindViewHolder(@NonNull MyCreatedTeamAdapter.MyViewHolder holder, int position) {
         myAllTeamRequest allTeamRequest = list.get(position);
+        holder.setIsRecyclable(false);
         if (list.size() > 0) {
             holder.CName.setText(allTeamRequest.getCaptain());
             holder.VCname.setText(allTeamRequest.getVicecaptain());
