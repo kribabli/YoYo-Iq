@@ -49,7 +49,6 @@ public class CreateTeamActivity extends AppCompatActivity {
     PageAdapterPlayer pageAdapterPlayer;
     LinearLayout linearLayout1, linearLayout2, linearLayout3, linearLayout4;
     CircleImageView imageViewA, imageViewB;
-    LinearProgressIndicator maxPlayerSelected;
     RecyclerView ball_recyclerView;
     TextView textViewA, textViewB, tv_TotalSelectedPlayer, tv_TotalCredit, tv_TeamOneSize, tv_TeamTwoSize;
     TextView text1, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11;
@@ -59,7 +58,7 @@ public class CreateTeamActivity extends AppCompatActivity {
     private Handler handler = new Handler();
     private Runnable runnable;
     public static String addedPlayerIds;
-    public static  String CreatedTeamId;
+    public static String CreatedTeamId;
     private List<AllSelectedPlayerFromServer> listData = new ArrayList<>();
 
     @Override
@@ -70,13 +69,12 @@ public class CreateTeamActivity extends AppCompatActivity {
         setAction();
         countDownStart();
         linearLayout1.setVisibility(View.VISIBLE);
-        if(getIntent().hasExtra("CreatedTeamId")){
+        if (getIntent().hasExtra("CreatedTeamId")) {
             listData = new Gson().fromJson(getIntent().getStringExtra("listdata"), new TypeToken<ArrayList<AllSelectedPlayerFromServer>>() {
             }.getType());
-
         }
 
-        pageAdapterPlayer = new PageAdapterPlayer(getSupportFragmentManager(), tabLayout.getTabCount(), match_id, matchA, matchB, logo_url_a, logo_url_b,listData);
+        pageAdapterPlayer = new PageAdapterPlayer(getSupportFragmentManager(), tabLayout.getTabCount(), match_id, matchA, matchB, logo_url_a, logo_url_b, listData);
         viewPager.setAdapter(pageAdapterPlayer);
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -196,8 +194,6 @@ public class CreateTeamActivity extends AppCompatActivity {
         logo_url_b = getIntent().getStringExtra("logo_url_b");
         date_start = getIntent().getStringExtra("date_start");
         date_end = getIntent().getStringExtra("date_end");
-
-
 
         tabLayout = findViewById(R.id.tabLayout);
         tabItem1 = findViewById(R.id.WK);
@@ -321,15 +317,14 @@ public class CreateTeamActivity extends AppCompatActivity {
                 LinearLayout layout = (LinearLayout) findViewById(R.id.playerPosition);
                 for (int i = 0; i < layout.getChildCount(); i++) {
                     TextView b = (TextView) layout.getChildAt(i);
-
                     b.setBackground(getResources().getDrawable(R.drawable.circle_shape));
-
                 }
+
                 for (int i = 0; i < integer; i++) {
                     TextView b = (TextView) layout.getChildAt(i);
                     b.setBackground(getResources().getDrawable(R.drawable.green_circleshape));
-
                 }
+
                 TextView b = (TextView) layout.getChildAt(integer);
                 try {
                     b.setText(String.valueOf(integer + 1));

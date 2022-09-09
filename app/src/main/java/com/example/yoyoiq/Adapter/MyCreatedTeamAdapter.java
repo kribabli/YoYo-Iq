@@ -82,7 +82,20 @@ public class MyCreatedTeamAdapter extends RecyclerView.Adapter<MyCreatedTeamAdap
                 intent.putExtra("listdata", list.get(position).getSquads().toString());
                 intent.putExtra("CreatedTeamId", list.get(position).getTeamId());
                 context.startActivity(intent);
+            });
 
+            holder.duplicate.setOnClickListener(view -> {
+                Intent intent = new Intent(context, CreateTeamActivity.class);
+                intent.putExtra("match_id", list.get(position).getMatch_id());
+                intent.putExtra("matchA", list.get(position).getTeamAName());
+                intent.putExtra("matchB", list.get(position).getTeamBName());
+                intent.putExtra("logo_url_a", list.get(position).getLogo_url_a());
+                intent.putExtra("logo_url_b", list.get(position).getLogo_url_b());
+                intent.putExtra("date_start", list.get(position).getDate_start());
+                intent.putExtra("date_end", list.get(position).getDate_end());
+                intent.putExtra("listdata", list.get(position).getSquads().toString());
+                intent.putExtra("CreatedTeamId", list.get(position).getTeamId());
+                context.startActivity(intent);
             });
         }
     }
@@ -93,7 +106,7 @@ public class MyCreatedTeamAdapter extends RecyclerView.Adapter<MyCreatedTeamAdap
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView teamA, teamB, wkTv, batTv, arTv, bowlTv, CName, VCname, teamACount, teamBCount, userNameAndTid, editImg;
+        TextView teamA, teamB, wkTv, batTv, arTv, bowlTv, CName, VCname, teamACount, teamBCount, userNameAndTid, editImg, duplicate;
         CardView cardView1;
         LinearLayout linearLayout1;
 
@@ -112,6 +125,7 @@ public class MyCreatedTeamAdapter extends RecyclerView.Adapter<MyCreatedTeamAdap
             userNameAndTid = itemView.findViewById(R.id.userNameAndTid);
             cardView1 = itemView.findViewById(R.id.cardView1);
             editImg = itemView.findViewById(R.id.editImg);
+            duplicate = itemView.findViewById(R.id.duplicate);
             linearLayout1 = itemView.findViewById(R.id.linearLayout1);
         }
     }

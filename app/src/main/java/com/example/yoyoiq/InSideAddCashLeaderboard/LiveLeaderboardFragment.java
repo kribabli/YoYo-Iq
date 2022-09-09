@@ -147,7 +147,7 @@ public class LiveLeaderboardFragment extends Fragment {
                         String date_time = jsonObject1.getString("date_time");
                         String name = jsonObject1.getString("name");
                         String mobile = jsonObject1.getString("mobile");
-                        String rank = jsonObject1.getString("rank");
+                        String rank = String.valueOf((i + 1));
                         String total_points = jsonObject1.getString("total_points");
 
                         LeaderboardPOJO leaderboardPOJO = new LeaderboardPOJO(id, user_id, team_id, match_id, contest_id, date_time, name, mobile, rank, total_points, jsonArray);

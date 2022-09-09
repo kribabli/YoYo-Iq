@@ -6,10 +6,10 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView1"
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:layout_margin="12dp"
-        android:id="@+id/cardView1"
         app:cardCornerRadius="8dp">
 
         <LinearLayout
@@ -46,14 +46,23 @@
                 android:layout_marginHorizontal="10dp"
                 android:drawableRight="@drawable/ic_baseline_edit_24" />
 
+            <TextView
+                android:id="@+id/duplicate"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
+                android:drawableRight="@drawable/ic_baseline_library_add_24" />
+
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginTop="40dp"
             android:background="@color/green"
-            android:id="@+id/linearLayout1"
             android:gravity="center"
             android:orientation="horizontal"
             android:weightSum="12">
