@@ -17,9 +17,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import com.example.yoyoiq.LoginPojo.RegistrationResponse;
+
 import com.example.yoyoiq.PrivacyPolicy.AboutUsActivity;
-import com.example.yoyoiq.Retrofit.ApiClient;
 import com.example.yoyoiq.WalletPackage.AddCash;
 import com.example.yoyoiq.common.HelperData;
 import com.example.yoyoiq.common.SessionManager;
@@ -29,10 +28,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
@@ -53,10 +48,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         textView = findViewById(R.id.walletTV);
         notification = findViewById(R.id.notification);
-        HomeFragment homeFragment=new HomeFragment();
-        loadFragment(homeFragment,fragmentManager);
-
-
+        HomeFragment homeFragment = new HomeFragment();
+        loadFragment(homeFragment, fragmentManager);
+        
         textView.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, AddCash.class);
             startActivity(intent);
@@ -102,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-    private void loadFragment(Fragment f1,  FragmentManager fm){
+    private void loadFragment(Fragment f1, FragmentManager fm) {
         for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
             fm.popBackStack();
         }
@@ -131,17 +125,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         case R.id.home:
                             bool = true;
                             HomeFragment homeFragment = new HomeFragment();
-                            loadFragment(homeFragment,fragmentManager);
+                            loadFragment(homeFragment, fragmentManager);
                             break;
                         case R.id.my_matches:
                             bool = true;
                             MyMatchesFragment myMatchesFragment = new MyMatchesFragment();
-                            loadFragment(myMatchesFragment,fragmentManager);
+                            loadFragment(myMatchesFragment, fragmentManager);
                             break;
                         case R.id.winners:
                             bool = true;
                             WinnersFragment winnersFragment = new WinnersFragment();
-                            loadFragment(winnersFragment,fragmentManager);
+                            loadFragment(winnersFragment, fragmentManager);
                             break;
                     }
                 }

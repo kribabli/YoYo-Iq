@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.yoyoiq.InSideAddCashLeaderboard.LeaderboardFragment;
 import com.example.yoyoiq.InSideAddCashLeaderboard.LiveLeaderboardFragment;
 import com.example.yoyoiq.InSideAddCashLeaderboard.WinningFragment;
 
@@ -19,7 +18,7 @@ public class PageAdapterLeaderboard extends FragmentPagerAdapter {
     String matchA = "";
     String matchB = "";
 
-    public PageAdapterLeaderboard(@NonNull FragmentManager fm, int behavior, String price_contribution, String match_id, String contest_id,String matchA,String matchB) {
+    public PageAdapterLeaderboard(@NonNull FragmentManager fm, int behavior, String price_contribution, String match_id, String contest_id, String matchA, String matchB) {
         super(fm, behavior);
         tabCount = behavior;
         this.price_contribution = price_contribution;
