@@ -118,18 +118,37 @@
                 android:layout_weight="8"
                 android:gravity="center"
                 android:textColor="@color/red"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="3"
+                android:drawableRight="@drawable/ic_red_small_ball"
+                android:gravity="center" />
 
             <TextView
                 android:id="@+id/done"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="8"
+                android:layout_weight="3"
                 android:gravity="center"
                 android:textColor="@color/red"
-                android:textStyle="bold"
-                android:visibility="gone" />
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/shortNameB"
@@ -153,10 +172,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="120dp"
-            android:visibility="gone"
             android:background="#57DBDBDB"
             android:orientation="horizontal"
             android:padding="5dp"
+            android:visibility="gone"
             android:weightSum="10">
 
             <TextView
