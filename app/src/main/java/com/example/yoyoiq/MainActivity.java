@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         setAction();
         navigationView.setNavigationItemSelectedListener(this);
+        googleSignIn();
     }
 
     private void googleSignIn() {
@@ -90,19 +91,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Uri photoUrl = googleSignInAccount.getPhotoUrl();
             String id = googleSignInAccount.getId();
             Log.d("TAG", "onCreate: " + id + "  " + userName + "  " + userEmail + "  " + photoUrl);
-
-            Call<RegistrationResponse> call = ApiClient.getInstance().getApi().
-                    SendUserDetails_server(id, userName, userEmail, String.valueOf(photoUrl));
-            call.enqueue(new Callback<RegistrationResponse>() {
-                @Override
-                public void onResponse(Call<RegistrationResponse> call, Response<RegistrationResponse> response) {
-                }
-
-                @Override
-                public void onFailure(Call<RegistrationResponse> call, Throwable t) {
-
-                }
-            });
         }
     }
 
