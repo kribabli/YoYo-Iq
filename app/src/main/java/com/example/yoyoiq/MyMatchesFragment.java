@@ -1,7 +1,6 @@
 package com.example.yoyoiq;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.yoyoiq.Adapter.PagerAdapterLiveCompleted;
 import com.example.yoyoiq.InSideMyMatches.CompletedMatchFragment;
 import com.example.yoyoiq.InSideMyMatches.LiveMatchFragment;
 import com.example.yoyoiq.InSideMyMatches.UpcomingMatchFragment;
@@ -29,7 +27,7 @@ public class MyMatchesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView  = inflater.inflate(R.layout.fragment_my_matches, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_my_matches, container, false);
         viewPager = rootView.findViewById(R.id.viewpager);
         tabLayout = rootView.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
@@ -38,7 +36,7 @@ public class MyMatchesFragment extends Fragment {
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             View tab = ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(i);
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) tab.getLayoutParams();
-            p.setMargins(20, 0, 50, 0);
+            p.setMargins(0, 0, 0, 0);
             tab.requestLayout();
         }
         setupViewPager(viewPager);
@@ -53,9 +51,7 @@ public class MyMatchesFragment extends Fragment {
         adapter.addFragment(new LiveMatchFragment(), "Live");
         adapter.addFragment(new CompletedMatchFragment(), "Completed");
         viewPager.setAdapter(adapter);
-
     }
-
 
     class ViewPagerAdapter extends FragmentStatePagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -90,7 +86,4 @@ public class MyMatchesFragment extends Fragment {
             return mFragmentTitleList.get(position);
         }
     }
-
-
-
 }
