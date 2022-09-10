@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -60,8 +59,8 @@ public class LoginActivity extends AppCompatActivity {
     SessionManager sessionManager;
     List<userLoginData> list;
     SharedPreferences sharedPreferences;
-    String url="http://adminapp.tech/yoyoiq/ItsMe/all_apis.php?func=google_login";
-    String userEmail,userName;
+    String url = "http://adminapp.tech/yoyoiq/ItsMe/all_apis.php?func=google_login";
+    String userEmail, userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +72,6 @@ public class LoginActivity extends AppCompatActivity {
 
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, gso);
-
 
         initMethod();
         setAction();
@@ -122,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void googleSignInVerification() {
-        cmn.setProgressDialog("Please wait..","",LoginActivity.this,LoginActivity.this);
+        cmn.setProgressDialog("Please wait..", "", LoginActivity.this, LoginActivity.this);
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, gso);
         GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);
@@ -131,56 +129,49 @@ public class LoginActivity extends AppCompatActivity {
             userEmail = googleSignInAccount.getEmail();
             Uri photoUrl = googleSignInAccount.getPhotoUrl();
             String id = googleSignInAccount.getId();
-
         }
 
         RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, url, new com.android.volley.Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    JSONObject jsonObject=new JSONObject(response);
-                    String Message=jsonObject.getString("message")+userName;
-                    Log.d("Amit","Value "+Message);
-                    if(jsonObject.getString("message").equalsIgnoreCase("Welcome back ")){
-                        String userId=jsonObject.getString("userid");
-                        HelperData.UserName=userName;
-                        HelperData.UserEmail=userEmail;
-                        HelperData.UserId=userId;
-                        UserData userData=new UserData(userName,"",userEmail,userId);
+                    JSONObject jsonObject = new JSONObject(response);
+                    String Message = jsonObject.getString("message") + userName;
+                    if (jsonObject.getString("message").equalsIgnoreCase("Welcome back ")) {
+                        String userId = jsonObject.getString("userid");
+                        HelperData.UserName = userName;
+                        HelperData.UserEmail = userEmail;
+                        HelperData.UserId = userId;
+                        UserData userData = new UserData(userName, "", userEmail, userId);
                         sessionManager.saveUser(userData);
-                        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
-                        Toast.makeText(LoginActivity.this, ""+jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "" + jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                         cmn.closeDialog(LoginActivity.this);
-                    }
-                    else if(jsonObject.getString("message").equalsIgnoreCase("Please update your profile")){
-                        Intent intent=new Intent(LoginActivity.this,RegisterDetails.class);
+                    } else if (jsonObject.getString("message").equalsIgnoreCase("Please update your profile")) {
+                        Intent intent = new Intent(LoginActivity.this, RegisterDetails.class);
                         startActivity(intent);
                         gsc.signOut();
-                        Log.d("Amit","here2224 "+jsonObject.getString("message"));
-                        Toast.makeText(LoginActivity.this, ""+jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "" + jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                         finish();
                         cmn.closeDialog(LoginActivity.this);
-
-                    }
-                    else if(jsonObject.getString("message").equalsIgnoreCase("Welcome back "+userName)){
-                        String userId=jsonObject.getString("userid");
-                        HelperData.UserName=userName;
-                        HelperData.UserEmail=userEmail;
-                        HelperData.UserId=userId;
-                        UserData userData=new UserData(userName,"",userEmail,userId);
+                    } else if (jsonObject.getString("message").equalsIgnoreCase("Welcome back " + userName)) {
+                        String userId = jsonObject.getString("userid");
+                        HelperData.UserName = userName;
+                        HelperData.UserEmail = userEmail;
+                        HelperData.UserId = userId;
+                        UserData userData = new UserData(userName, "", userEmail, userId);
                         sessionManager.saveUser(userData);
-                        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
-                        Toast.makeText(LoginActivity.this, ""+jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "" + jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                         cmn.closeDialog(LoginActivity.this);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Log.d("Amit","here222 "+e);
                 }
             }
         }, new com.android.volley.Response.ErrorListener() {
@@ -188,9 +179,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 cmn.closeDialog(LoginActivity.this);
                 Toast.makeText(LoginActivity.this, "Somethings Went Wrong....", Toast.LENGTH_SHORT).show();
-
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
@@ -200,15 +190,9 @@ public class LoginActivity extends AppCompatActivity {
 
         };
         queue.add(stringRequest);
-
     }
 
     private void navigateToSecondActivity() {
-
-
-
-
-
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.putExtra("checkData", true);
         startActivity(intent);
