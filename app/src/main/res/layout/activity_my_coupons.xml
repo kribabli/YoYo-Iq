@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyCoupons"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".MyCoupons">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -30,8 +30,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="My Coupons"
-                android:textSize="15sp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
         </LinearLayout>
 
@@ -44,12 +44,11 @@
         android:orientation="horizontal">
 
         <EditText
+            android:id="@+id/couponCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:hint="Enter Coupon Code"
-            android:id="@+id/couponCode">
-        </EditText>
+            android:hint="Enter Coupon Code" />
 
     </LinearLayout>
 
@@ -60,17 +59,17 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/applyCode"
             android:layout_width="match_parent"
             android:layout_height="45dp"
+            android:layout_gravity="center"
             android:layout_marginLeft="100dp"
             android:layout_marginRight="100dp"
-            android:text="APPLY CODE"
+            android:background="@drawable/border_red"
             android:gravity="center"
-            android:layout_gravity="center"
-            android:textStyle="bold"
+            android:text="APPLY CODE"
             android:textColor="@color/white"
-            android:background="@drawable/border_red">
-        </TextView>
+            android:textStyle="bold" />
 
     </LinearLayout>
 

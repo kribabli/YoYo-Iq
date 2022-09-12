@@ -37,6 +37,11 @@
         android:title="Terms &amp; conditions" />
 
     <item
+        android:id="@+id/referAndEarn"
+        android:icon="@drawable/ic_baseline_share_refer"
+        android:title="Refer and Earn" />
+
+    <item
         android:id="@+id/logOut"
         android:icon="@drawable/ic_baseline_logout_24"
         android:title="Logout" />

@@ -28,7 +28,7 @@ public class FrontActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(FrontActivity.this,RegisterActivity.class);
+                Intent intent = new Intent(FrontActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
@@ -36,10 +36,17 @@ public class FrontActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(FrontActivity.this,LoginActivity.class);
+                Intent intent = new Intent(FrontActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
 
+        enterCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FrontActivity.this, MyCoupons.class);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         notification = findViewById(R.id.notification);
         HomeFragment homeFragment = new HomeFragment();
         loadFragment(homeFragment, fragmentManager);
-        
+
         textView.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, AddCash.class);
             startActivity(intent);
@@ -184,6 +185,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.termsAndConditions:
                 Intent intent4 = new Intent(MainActivity.this, AboutUsActivity.class);
                 startActivity(intent4);
+                break;
+            case R.id.referAndEarn:
+                Intent intent7 = new Intent(MainActivity.this, InviteFriends.class);
+                startActivity(intent7);
                 break;
             case R.id.logOut:
                 userLogout();
