@@ -21,7 +21,7 @@ import java.util.List;
 
 public class MyTeamPreview extends AppCompatActivity {
     TextView close, teamA, teamB, userNameAndTid;
-    int batCount, arCount, bowlCount, wkCount = 0, teamAcount = 0, teamBCount = 0;
+    int teamAcount = 0, teamBCount = 0;
     FlexboxLayout LL_GroundWK;
     FlexboxLayout LL_GroundBAT;
     FlexboxLayout LL_GroundAR;
