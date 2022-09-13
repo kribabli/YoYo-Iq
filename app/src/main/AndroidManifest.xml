@@ -87,9 +87,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterAndPlay"
-            android:exported="true" />
-        <activity
             android:name=".ContestWinners"
             android:exported="true" />
         <activity
