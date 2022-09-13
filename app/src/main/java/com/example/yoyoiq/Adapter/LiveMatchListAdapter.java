@@ -98,7 +98,7 @@ public class LiveMatchListAdapter extends RecyclerView.Adapter<LiveMatchListAdap
                         } else {
                             holder.leftTime.setVisibility(View.GONE);
                             holder.done.setVisibility(View.VISIBLE);
-                            holder.done.setText(". Live");
+                            holder.done.setText("Live");
                             handler.removeCallbacks(runnable);
                         }
                     } catch (Exception e) {
