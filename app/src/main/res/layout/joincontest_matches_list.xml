@@ -140,9 +140,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="3"
-                android:gravity="center"
+                android:layout_marginStart="5dp"
+                android:gravity="left"
                 android:textColor="@color/red"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <View
