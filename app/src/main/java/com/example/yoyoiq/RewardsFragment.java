@@ -10,8 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
-import com.example.yoyoiq.Adapter.PagerAdapterRewards;
 import com.example.yoyoiq.InSideRewardsFragments.MyRewardsFragment;
 import com.example.yoyoiq.InSideRewardsFragments.RewardShopFragment;
 import com.google.android.material.tabs.TabLayout;
@@ -20,13 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RewardsFragment extends Fragment {
-
-
     TabLayout tabLayout;
     ViewPager viewPager;
     FragmentManager childFragmentManager;
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,11 +38,8 @@ public class RewardsFragment extends Fragment {
             p.setMargins(20, 0, 20, 0);
             tab.requestLayout();
         }
-
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
-
-
         return rootView;
     }
 
@@ -57,8 +48,6 @@ public class RewardsFragment extends Fragment {
         adapter.addFragment(new RewardShopFragment(), "REWARD SHOP");
         adapter.addFragment(new MyRewardsFragment(), "MY REWARDS");
         viewPager.setAdapter(adapter);
-
-
     }
 
     class ViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -94,5 +83,4 @@ public class RewardsFragment extends Fragment {
             return mFragmentTitleList.get(position);
         }
     }
-
 }
