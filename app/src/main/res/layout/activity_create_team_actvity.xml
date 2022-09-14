@@ -465,7 +465,7 @@
             android:layout_height="50dp"
             android:layout_below="@+id/tabLayout"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
