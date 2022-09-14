@@ -70,7 +70,7 @@ public class ARAdapter extends RecyclerView.Adapter<ARAdapter.MyViewHolder> {
             Glide.with(context).load(HelperData.logoUrlTeamB).into(holder.playerImg);
         }
 
-        if (allSelectedPlayer.size() > 0) {
+        /*if (allSelectedPlayer.size() > 0) {
             if (listData.isSelected() == true) {
                 if (HelperData.team1NameShort == listData.getAbbr()) {
                     CreateTeamActivity.addedPlayerIds = CreateTeamActivity.addedPlayerIds + "_" + listData.getPidPlayers() + "_\n";
@@ -96,7 +96,7 @@ public class ARAdapter extends RecyclerView.Adapter<ARAdapter.MyViewHolder> {
                     HelperData.myTeamList.add(allSelectedPlayer);
                 }
             }
-        }
+        }*/
 
         /*please not Remove this commented code code*/
 //        if(listData.getPlaying11()==false){
@@ -121,9 +121,8 @@ public class ARAdapter extends RecyclerView.Adapter<ARAdapter.MyViewHolder> {
                     HelperData.conty2.setValue(HelperData.conty2.getValue() - 1);
                 }
                 holder.cardViewSelected.setBackgroundColor(Color.WHITE);
-                HelperData.allSelectedPlayer.getValue().remove(listData);
                 int index = HelperData.myTeamList.size() - 1;
-                HelperData.myTeamList.remove(index);
+                CreateTeamActivity.removedPlayerFromAddedList(Integer.parseInt(list.get(position).getPidPlayers()));
             } else {
                 if (HelperData.playerCounter.getValue() < HelperData.limit) {
                     if (HelperData.creditCounter.getValue() >= Double.valueOf(listData.getFantasy_player_rating())) {
@@ -138,7 +137,6 @@ public class ARAdapter extends RecyclerView.Adapter<ARAdapter.MyViewHolder> {
                                     holder.im_AddPlayer.setImageResource(R.drawable.minus_icon);
                                     holder.cardViewSelected.setBackgroundColor(Color.LTGRAY);
                                     AllSelectedPlayer allSelectedPlayer = new AllSelectedPlayer(Integer.valueOf(listData.getPidPlayers()), HelperData.matchId, listData.getShort_namePlayers(), listData.getAbbr(), "AR", Double.valueOf(listData.getFantasy_player_rating()), false, false, false, "");
-                                    HelperData.allSelectedPlayer.setValue(Collections.singletonList(allSelectedPlayer));
                                     HelperData.myTeamList.add(allSelectedPlayer);
                                 } else {
                                     Toast.makeText(context, "Please select player from another Country", Toast.LENGTH_SHORT).show();
@@ -153,7 +151,6 @@ public class ARAdapter extends RecyclerView.Adapter<ARAdapter.MyViewHolder> {
                                     holder.im_AddPlayer.setImageResource(R.drawable.minus_icon);
                                     holder.cardViewSelected.setBackgroundColor(Color.LTGRAY);
                                     AllSelectedPlayer allSelectedPlayer = new AllSelectedPlayer(Integer.valueOf(listData.getPidPlayers()), HelperData.matchId, listData.getShort_namePlayers(), listData.getAbbr(), "AR", Double.valueOf(listData.getFantasy_player_rating()), false, false, false, "");
-                                    HelperData.allSelectedPlayer.setValue(Collections.singletonList(allSelectedPlayer));
                                     HelperData.myTeamList.add(allSelectedPlayer);
                                 } else {
                                     Toast.makeText(context, "Please select player from another Country", Toast.LENGTH_SHORT).show();

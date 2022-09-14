@@ -35,18 +35,13 @@ public class HelperData {
     public static MutableLiveData<Integer> ar = new MutableLiveData<>(0);
     public static MutableLiveData<Integer> bowl = new MutableLiveData<>(0);
     public static MutableLiveData<Integer> myTeam = new MutableLiveData<>(0);
-    public static MutableLiveData<Integer> myContest = new MutableLiveData<>(0);
-    public static MutableLiveData<Integer> Selectedcap = new MutableLiveData<>(0);
-    public static MutableLiveData<Integer> selectedVcap = new MutableLiveData<>(0);
+    public static MutableLiveData<String> Selectedcap = new MutableLiveData<>("");
+    public static MutableLiveData<String> selectedVcap = new MutableLiveData<>("");
     public static MutableLiveData<Double> creditCounter = new MutableLiveData<>(0.0);
     public static MutableLiveData<List<AllSelectedPlayer>> allSelectedPlayer = new MutableLiveData<>();
     public static MutableLiveData<Integer> selectSingleTeamCounter = new MutableLiveData<>(0);
 
-    public static MutableLiveData<String> refreashLive = new MutableLiveData<>();
-    public static MutableLiveData<String> selectedPlayer = new MutableLiveData<>();
-    public static MutableLiveData<String> getCall_For_Refrashers = new MutableLiveData<>();
 
-    public static String selected = "wk";
     public static ArrayList<AllSelectedPlayer> myTeamList = new ArrayList<>();
     public static ArrayList<ShortSquadsUploadingPojoClass> myCountyPlayer = new ArrayList<>();
     public static String team1NameShort = "";
@@ -69,13 +64,12 @@ public class HelperData {
     public static String logoUrlTeamB = "";
     public static String MatchStartTime = "";
     public static String MatchEndTime = "";
-    public static String singleSelectedTeamName = "";
+    public static String TeamMakingStatus="";
     DatabaseConnectivity cmn = DatabaseConnectivity.getInstance();
     ProgressDialog dialog;
 
     public static void newTeamMaking() {
         myTeamList.clear();
-        selected = "wk";
         wk.setValue(0);
         playerCounter.setValue(0);
         bat.setValue(0);
@@ -83,13 +77,16 @@ public class HelperData {
         bowl.setValue(0);
         conty1.setValue(0);
         conty2.setValue(0);
-        Selectedcap.setValue(0);
-        selectedVcap.setValue(0);
+        Selectedcap.setValue("");
+        selectedVcap.setValue("");
         creditCounter.setValue(100.0);
+        HelperData.teamEdt=false;
+        CreateTeamActivity.CreatedTeamId="";
         vcap = false;
         cap = false;
         CreateTeamActivity.addedPlayerIds = "";
     }
+
 
     public static void uploadFile(Context context, String user_Id, String fullName, String accountNo, String ifsc, String bankName, String date_of_birth, String address_ed, String aadhar, String pan, String pan_img_path) {
 

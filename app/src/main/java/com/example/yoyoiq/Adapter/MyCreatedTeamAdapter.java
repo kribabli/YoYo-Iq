@@ -3,6 +3,7 @@ package com.example.yoyoiq.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,6 +82,19 @@ public class MyCreatedTeamAdapter extends RecyclerView.Adapter<MyCreatedTeamAdap
                 intent.putExtra("date_end", list.get(position).getDate_end());
                 intent.putExtra("listdata", list.get(position).getSquads().toString());
                 intent.putExtra("CreatedTeamId", list.get(position).getTeamId());
+                Log.d("Amit","Value c "+list.get(position).getTeamId());
+                CreateTeamActivity.CreatedTeamId=list.get(position).getTeamId();
+                HelperData.wk.setValue(list.get(position).getWkeeper());
+                HelperData.ar.setValue(list.get(position).getAllrounder());
+                HelperData.bat.setValue(list.get(position).getBatsman());
+                HelperData.bowl.setValue(list.get(position).getBoller());
+                HelperData.playerCounter.setValue(11);
+                HelperData.creditCounter.setValue(0.00);
+                HelperData.Selectedcap.setValue("Cap");
+                HelperData.selectedVcap.setValue("Vcap");
+                HelperData.teamEdt=true;
+                HelperData.conty1.setValue(list.get(position).getTeamAcount());
+                HelperData.conty2.setValue(list.get(position).getTeamBcount());
                 context.startActivity(intent);
             });
 
@@ -95,6 +109,18 @@ public class MyCreatedTeamAdapter extends RecyclerView.Adapter<MyCreatedTeamAdap
                 intent.putExtra("date_end", list.get(position).getDate_end());
                 intent.putExtra("listdata", list.get(position).getSquads().toString());
                 intent.putExtra("CreatedTeamId", list.get(position).getTeamId());
+                CreateTeamActivity.CreatedTeamId=list.get(position).getTeamId();
+                HelperData.wk.setValue(list.get(position).getWkeeper());
+                HelperData.teamEdt=true;
+                HelperData.ar.setValue(list.get(position).getAllrounder());
+                HelperData.bat.setValue(list.get(position).getBatsman());
+                HelperData.bowl.setValue(list.get(position).getBoller());
+                HelperData.playerCounter.setValue(11);
+                HelperData.creditCounter.setValue(0.00);
+                HelperData.Selectedcap.setValue("Cap");
+                HelperData.selectedVcap.setValue("Vcap");
+
+
                 context.startActivity(intent);
             });
         }

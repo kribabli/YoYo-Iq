@@ -90,10 +90,11 @@ public class BATFragment extends Fragment {
         listPlayerIdA.clear();
         matchA = getArguments().getString("matchA");
         matchB = getArguments().getString("matchB");
-        for(int k=0; k<allSelectedPlayer.size();k++){
+
+      /*  for(int k=0; k<allSelectedPlayer.size();k++){
             String pid= String.valueOf(allSelectedPlayer.get(k).getPid());
             arrayList.add(pid);
-        }
+        }*/
 
         Call<ResponsePlayer> call = ApiClient
                 .getInstance()
@@ -219,14 +220,11 @@ public class BATFragment extends Fragment {
                                 if (myMap.containsKey(pidPlayers)) {
                                     playing11A = myMap.get(pidPlayers);
                                 }
-                                if(arrayList.contains(pidPlayers)){
-                                    isSelected=true;
-                                }
                                 SquadsA squadsA = new SquadsA(player_idA, roleA, substituteA, role_strA, playing11A, nameA, matchA, fantasy_player_ratingPlayers, short_namePlayers, pidPlayers, abbrA, isSelected);
                                 list.add(squadsA);
-                                squadsBAdapter = new SquadsBAdapter(getContext(), list,allSelectedPlayer);
                             }
                         }
+                        squadsBAdapter = new SquadsBAdapter(getContext(), list,allSelectedPlayer);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         recyclerView.setAdapter(squadsBAdapter);
                         squadsBAdapter.notifyDataSetChanged();

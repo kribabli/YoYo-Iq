@@ -114,6 +114,7 @@ public class ContestActivity extends AppCompatActivity {
             intent.putExtra("match_id", match_id);
             intent.putExtra("matchA", matchA);
             intent.putExtra("matchB", matchB);
+            HelperData.teamEdt=false;
             intent.putExtra("logo_url_a", logo_url_a);
             intent.putExtra("logo_url_b", logo_url_b);
             intent.putExtra("date_start", date_start);
@@ -126,6 +127,7 @@ public class ContestActivity extends AppCompatActivity {
             intent.putExtra("match_id", match_id);
             intent.putExtra("matchA", matchA);
             intent.putExtra("matchB", matchB);
+            HelperData.teamEdt=false;
             intent.putExtra("logo_url_a", logo_url_a);
             intent.putExtra("logo_url_b", logo_url_b);
             intent.putExtra("date_start", date_start);

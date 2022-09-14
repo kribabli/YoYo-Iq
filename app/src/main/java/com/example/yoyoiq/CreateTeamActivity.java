@@ -2,6 +2,7 @@ package com.example.yoyoiq;
 
 import static com.example.yoyoiq.common.HelperData.limit;
 import static com.example.yoyoiq.common.HelperData.newTeamMaking;
+import static com.example.yoyoiq.common.HelperData.vcap;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 import com.example.yoyoiq.Adapter.PageAdapterPlayer;
 import com.example.yoyoiq.InSideContestActivityFragments.AllSelectedPlayerFromServer;
+import com.example.yoyoiq.Model.AllSelectedPlayer;
 import com.example.yoyoiq.OnlyTeamPreView.OnlyTeamPreview;
 import com.example.yoyoiq.common.HelperData;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
@@ -38,6 +40,7 @@ import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.grpc.LoadBalancer;
 
 public class CreateTeamActivity extends AppCompatActivity {
     TextView backPress;
@@ -69,10 +72,37 @@ public class CreateTeamActivity extends AppCompatActivity {
         setAction();
         countDownStart();
         linearLayout1.setVisibility(View.VISIBLE);
+
+        //for  Team Edit Section working
         if (getIntent().hasExtra("CreatedTeamId")) {
+           CreateTeamActivity.CreatedTeamId=getIntent().getStringExtra("CreatedTeamId");
             listData = new Gson().fromJson(getIntent().getStringExtra("listdata"), new TypeToken<ArrayList<AllSelectedPlayerFromServer>>() {
             }.getType());
         }
+
+        if(listData.size()>0){
+            HelperData.myTeamList.clear();
+            for(int i=0;i<listData.size();i++){
+                int id=listData.get(i).getPid();
+                String match_id=listData.get(i).getMatchId();
+                String title=listData.get(i).getTitle();
+                String country=listData.get(i).getCountry();
+                String playing_role=listData.get(i).getPlaying_role();
+                double fantasy_rating=listData.get(i).getFantasy_player_rating();
+                boolean cap=listData.get(i).isCap();
+                boolean Vcap=listData.get(i).isVcap();
+                boolean added=listData.get(i).isAdded();
+                String point=listData.get(i).getPoints();
+                AllSelectedPlayer allSelectedPlayer=new AllSelectedPlayer(id,match_id,title,country,playing_role,fantasy_rating,added,cap,Vcap,point);
+                HelperData.myTeamList.add(allSelectedPlayer);
+                CreateTeamActivity.addedPlayerIds = CreateTeamActivity.addedPlayerIds + "_" + listData.get(i).getPid() + "_\n";
+            }
+        }
+
+
+
+
+        // till here
 
         pageAdapterPlayer = new PageAdapterPlayer(getSupportFragmentManager(), tabLayout.getTabCount(), match_id, matchA, matchB, logo_url_a, logo_url_b, listData);
         viewPager.setAdapter(pageAdapterPlayer);
@@ -118,13 +148,12 @@ public class CreateTeamActivity extends AppCompatActivity {
         });
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+
         if (!HelperData.teamEdt) {
             newTeamMaking();
+
         }
-        HelperData.conty1 = new MutableLiveData<>();
-        HelperData.conty2 = new MutableLiveData<>();
-        HelperData.conty1.setValue(0);
-        HelperData.conty2.setValue(0);
+
         playerCounter();
         creditCounter();
         playerSectionCounter();
@@ -213,8 +242,21 @@ public class CreateTeamActivity extends AppCompatActivity {
         tv_TeamTwoSize = findViewById(R.id.tv_TeamTwoSize);
     }
 
+    public static void removedPlayerFromAddedList(int pid){
+       for(int i=0; i<HelperData.myTeamList.size(); i++){
+           if(HelperData.myTeamList.get(i).getPid()==pid){
+               HelperData.myTeamList.remove(i);
+           }
+       }
+
+    }
+
+
     private void setAction() {
-        backPress.setOnClickListener(view -> onBackPressed());
+        backPress.setOnClickListener(view ->
+                onBackPressed()
+
+        );
         textViewA.setText(matchA);
         textViewB.setText(matchB);
         HelperData.team1NameShort = matchA;
@@ -251,6 +293,9 @@ public class CreateTeamActivity extends AppCompatActivity {
                         if (HelperData.bowl.getValue() >= 3) {
                             Intent intent = new Intent(CreateTeamActivity.this, TeamPreviewActivity.class);
                             intent.putExtra("date_start", date_start);
+                            if(HelperData.teamEdt==true){
+                                intent.putExtra("updateTeam",true);
+                            }
                             startActivity(intent);
                             finish();
                         } else {
@@ -379,5 +424,11 @@ public class CreateTeamActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         handler.removeCallbacks(runnable);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        HelperData.myTeamList.clear();
     }
 }

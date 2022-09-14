@@ -10,6 +10,7 @@ import com.example.yoyoiq.LoginPojo.LoginResponse;
 import com.example.yoyoiq.LoginPojo.RegistrationResponse;
 import com.example.yoyoiq.OnlyMyContestPOJO.MyContest1;
 import com.example.yoyoiq.PlayerPOJO.ResponsePlayer;
+import com.example.yoyoiq.PlayerPOJO.UpdatedTeamResponse;
 import com.example.yoyoiq.UpcommingReq.UpcommingResponse;
 import com.example.yoyoiq.UpdatePassword.UpdatePassword;
 import com.example.yoyoiq.WalletPackage.ContestJoinResponse;
@@ -50,6 +51,17 @@ public interface UsersServices {
     @FormUrlEncoded
     @POST("userTeam")
     Call<JSONObject> Send_myteam_list_Server(
+            @Field("user_id") String User_id,
+            @Field("match_id") String match_id,
+            @Field("squads") String squads,
+            @Field("short_squads") String short_squads
+//            @Body SendCreatedTeamServer sendCreatedTeamServer
+    );
+
+    @FormUrlEncoded
+    @POST("updateuserTeam")
+    Call<UpdatedTeamResponse> updateTeamOnServer(
+            @Field("id") String id,
             @Field("user_id") String User_id,
             @Field("match_id") String match_id,
             @Field("squads") String squads,

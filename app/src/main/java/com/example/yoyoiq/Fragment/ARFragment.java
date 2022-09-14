@@ -89,10 +89,11 @@ public class ARFragment extends Fragment {
         listPlayerIdA.clear();
         matchA = getArguments().getString("matchA");
         matchB = getArguments().getString("matchB");
-        for(int k=0; k<allSelectedPlayer.size();k++){
+
+      /*  for(int k=0; k<allSelectedPlayer.size();k++){
             String pid= String.valueOf(allSelectedPlayer.get(k).getPid());
             arrayList.add(pid);
-        }
+        }*/
 
         Call<ResponsePlayer> call = ApiClient
                 .getInstance()

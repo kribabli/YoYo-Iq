@@ -66,6 +66,7 @@ public class SquadsAAdapter extends RecyclerView.Adapter<SquadsAAdapter.MyViewHo
         if (listData.getPlaying11() == true) {
             holder.isPlaying.setText("Playing");
         }
+
         if (listData.getAbbr() == HelperData.team1NameShort) {
             Glide.with(context).load(HelperData.logoUrlTeamA).into(holder.playerImg);
         } else {
@@ -73,7 +74,9 @@ public class SquadsAAdapter extends RecyclerView.Adapter<SquadsAAdapter.MyViewHo
         }
 
         // for Team Edit Section only
-        if (allSelectedPlayer.size() > 0) {
+
+
+        /*if (allSelectedPlayer.size() > 0) {
             if (listData.isSelected() == true) {
                 if (HelperData.team1NameShort == listData.getAbbr()) {
                     CreateTeamActivity.addedPlayerIds = CreateTeamActivity.addedPlayerIds + "_" + listData.getPidPlayers() + "_\n";
@@ -99,7 +102,7 @@ public class SquadsAAdapter extends RecyclerView.Adapter<SquadsAAdapter.MyViewHo
                     HelperData.myTeamList.add(allSelectedPlayer);
                 }
             }
-        }
+        }*/
 
 
         /*please not Remove this commented code code*/
@@ -126,9 +129,9 @@ public class SquadsAAdapter extends RecyclerView.Adapter<SquadsAAdapter.MyViewHo
                     HelperData.conty2.setValue(HelperData.conty2.getValue() - 1);
                 }
                 holder.cardViewSelected.setBackgroundColor(Color.WHITE);
-                HelperData.allSelectedPlayer.getValue().remove(listData);
                 int index = HelperData.myTeamList.size() - 1;
-                HelperData.myTeamList.remove(index);
+                CreateTeamActivity.removedPlayerFromAddedList(Integer.parseInt(list.get(position).getPidPlayers()));
+
             } else {
                 if (HelperData.playerCounter.getValue() < HelperData.limit) {
                     if (HelperData.creditCounter.getValue() >= Double.valueOf(listData.getFantasy_player_rating())) {
@@ -143,7 +146,6 @@ public class SquadsAAdapter extends RecyclerView.Adapter<SquadsAAdapter.MyViewHo
                                     holder.im_AddPlayer.setImageResource(R.drawable.minus_icon);
                                     holder.cardViewSelected.setBackgroundColor(Color.LTGRAY);
                                     AllSelectedPlayer allSelectedPlayer = new AllSelectedPlayer(Integer.valueOf(listData.getPidPlayers()), HelperData.matchId, listData.getShort_namePlayers(), listData.getAbbr(), "WK", Double.valueOf(listData.getFantasy_player_rating()), false, false, false, "");
-                                    HelperData.allSelectedPlayer.setValue(Collections.singletonList(allSelectedPlayer));
                                     HelperData.myTeamList.add(allSelectedPlayer);
                                 } else {
                                     Toast.makeText(context, "Please select player from another Country", Toast.LENGTH_SHORT).show();
@@ -158,7 +160,6 @@ public class SquadsAAdapter extends RecyclerView.Adapter<SquadsAAdapter.MyViewHo
                                     holder.im_AddPlayer.setImageResource(R.drawable.minus_icon);
                                     holder.cardViewSelected.setBackgroundColor(Color.LTGRAY);
                                     AllSelectedPlayer allSelectedPlayer = new AllSelectedPlayer(Integer.valueOf(listData.getPidPlayers()), HelperData.matchId, listData.getShort_namePlayers(), listData.getAbbr(), "WK", Double.valueOf(listData.getFantasy_player_rating()), false, false, false, "");
-                                    HelperData.allSelectedPlayer.setValue(Collections.singletonList(allSelectedPlayer));
                                     HelperData.myTeamList.add(allSelectedPlayer);
                                 } else {
                                     Toast.makeText(context, "Please select player from another Country", Toast.LENGTH_SHORT).show();
@@ -176,7 +177,6 @@ public class SquadsAAdapter extends RecyclerView.Adapter<SquadsAAdapter.MyViewHo
             }
         });
     }
-
 
     @Override
     public int getItemCount() {

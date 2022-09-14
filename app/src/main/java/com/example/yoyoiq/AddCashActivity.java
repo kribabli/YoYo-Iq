@@ -152,6 +152,7 @@ public class AddCashActivity extends AppCompatActivity {
                         intent.putExtra("match_id", match_id);
                         intent.putExtra("matchA", matchA);
                         intent.putExtra("matchB", matchB);
+                        HelperData.teamEdt=false;
                         intent.putExtra("logo_url_a", HelperData.logoUrlTeamA);
                         intent.putExtra("logo_url_b", HelperData.logoUrlTeamB);
                         intent.putExtra("date_start", HelperData.MatchStartTime);

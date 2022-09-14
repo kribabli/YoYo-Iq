@@ -97,10 +97,11 @@ public class WKFragment extends Fragment {
                 .getInstance()
                 .getApi()
                 .getMatchPlaying11(getArguments().getString("match_id"));
-        for(int k=0; k<allSelectedPlayer.size();k++){
+
+       /* for(int k=0; k<allSelectedPlayer.size();k++){
             String pid= String.valueOf(allSelectedPlayer.get(k).getPid());
            arrayList.add(pid);
-        }
+        }*/
 
 
         call.enqueue(new Callback<ResponsePlayer>() {
@@ -229,14 +230,9 @@ public class WKFragment extends Fragment {
                                 if (myMap.containsKey(pidPlayers)) {
                                     playing11A = myMap.get(pidPlayers);
                                 }
-                                if(arrayList.contains(pidPlayers)){
-                                    isSelected=true;
-                                }
-
                                 SquadsA squadsA = new SquadsA(player_idA, roleA, substituteA, role_strA, playing11A, nameA, matchA, fantasy_player_ratingPlayers, short_namePlayers, pidPlayers, abbrA, isSelected);
                                 list.add(squadsA);
                             }
-
                         }
                         squadsAAdapter = new SquadsAAdapter(getContext(), list,allSelectedPlayer);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -160,16 +160,20 @@ public class SelectTeams extends AppCompatActivity {
     private void JoinContestData() {
         progressDialog.setTitle("Please Wait Joining Contest..");
         progressDialog.show();
+        Log.d("Amit","Value "+contest_id);
+        Log.d("Amit","Value22"+HelperData.matchId);
         Call<JoinContestsResponse> call = ApiClient.getInstance().getApi().getJoinContestResponse(sessionManager.getUserData().getUser_id(), HelperData.matchId, contest_id, SelectTeams.ContestTeamId);
         call.enqueue(new Callback<JoinContestsResponse>() {
             @Override
             public void onResponse(Call<JoinContestsResponse> call, Response<JoinContestsResponse> response) {
                JoinContestsResponse joinContestsResponse= response.body();
                 if (response.isSuccessful()) {
-                    Log.d("Amit","Check data"+response.body());
+                    Log.d("Amit","Check data"+response.body().getResponse());
                     String Data = new Gson().toJson(response.body());
                     try {
                         JSONObject jsonObject = new JSONObject(Data);
+                        Log.d("Amit","Value "+jsonObject);
+
                         if (joinContestsResponse.getStatus().equalsIgnoreCase("true")) {
                             progressDialog.dismiss();
                             Toast.makeText(SelectTeams.this, "Contest Join Successfully..", Toast.LENGTH_SHORT).show();
