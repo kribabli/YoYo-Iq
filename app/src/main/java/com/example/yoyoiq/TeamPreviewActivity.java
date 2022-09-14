@@ -151,7 +151,7 @@ public class TeamPreviewActivity extends AppCompatActivity {
                 Handle_And_UploadTeamOnServer();
             }
         });
-        
+
         teamPreView.setOnClickListener(v -> {
             Intent intent = new Intent(TeamPreviewActivity.this, OnlyTeamPreview.class);
             startActivity(intent);
