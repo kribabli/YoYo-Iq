@@ -45,8 +45,7 @@ import retrofit2.Response;
 
 public class RegisterDetails extends AppCompatActivity {
     TextView backPress, registerUser;
-    DatabaseReference databaseReference;
-    DatabaseConnectivity  cmn=DatabaseConnectivity.getInstance();
+    DatabaseConnectivity cmn = DatabaseConnectivity.getInstance();
     TextView userName;
     TextView mobileNo;
     TextView emailId;
@@ -54,7 +53,7 @@ public class RegisterDetails extends AppCompatActivity {
     ProgressDialog progressDialog;
     SharedPrefManager sharedPrefManager;
     SessionManager sessionManager;
-   String check;
+    String check;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     List<userLoginData> list;
@@ -69,9 +68,8 @@ public class RegisterDetails extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please Wait");
         progressDialog.setMessage("Data Uploading..");
-        check=getIntent().getStringExtra("check");
+        check = getIntent().getStringExtra("check");
         sessionManager = new SessionManager(getApplicationContext());
-
     }
 
     private void initMethod() {
@@ -127,16 +125,16 @@ public class RegisterDetails extends AppCompatActivity {
             String userEmail = googleSignInAccount.getEmail();
             Uri photoUrl = googleSignInAccount.getPhotoUrl();
             String id = googleSignInAccount.getId();
-            Log.d("Check ","Here "+userEmail+" "+userName1);
+            Log.d("Check ", "Here " + userEmail + " " + userName1);
             Call<RegistrationResponse> call = ApiClient.getInstance().getApi().
                     SendUserDetails_server(mobileNo.getText().toString(), userName1, userEmail, password.getText().toString());
             call.enqueue(new Callback<RegistrationResponse>() {
                 @Override
                 public void onResponse(Call<RegistrationResponse> call, Response<RegistrationResponse> response) {
-                    RegistrationResponse registrationResponse= response.body();
-                    if(response.isSuccessful()){
-                        Log.d("Amit","Check Here ");
-                        if(registrationResponse.getResponse()!=null) {
+                    RegistrationResponse registrationResponse = response.body();
+                    if (response.isSuccessful()) {
+                        Log.d("Amit", "Check Here ");
+                        if (registrationResponse.getResponse() != null) {
                             if (registrationResponse.getResponse().equalsIgnoreCase("Email already exist")) {
 
 
@@ -190,15 +188,15 @@ public class RegisterDetails extends AppCompatActivity {
                                     }
                                 });
 
-                            }
-                            else{
-                                showDialog(""+registrationResponse.getResponse().toString(),false);
+                            } else {
+                                showDialog("" + registrationResponse.getResponse().toString(), false);
 
                             }
                         }
 
                     }
                 }
+
                 @Override
                 public void onFailure(Call<RegistrationResponse> call, Throwable t) {
 
@@ -208,32 +206,31 @@ public class RegisterDetails extends AppCompatActivity {
 
     }
 
-
     private void send_user_Data_onServer() {
-        cmn.setProgressDialog("","Please wait..",RegisterDetails.this,RegisterDetails.this);
+        cmn.setProgressDialog("", "Please wait..", RegisterDetails.this, RegisterDetails.this);
 
         Call<RegistrationResponse> call = ApiClient.getInstance().getApi().
                 SendUserDetails_server(mobileNo.getText().toString(), userName.getText().toString(), emailId.getText().toString(), password.getText().toString());
         call.enqueue(new Callback<RegistrationResponse>() {
             @Override
             public void onResponse(Call<RegistrationResponse> call, Response<RegistrationResponse> response) {
-                RegistrationResponse registrationResponse= response.body();
+                RegistrationResponse registrationResponse = response.body();
                 if (response.isSuccessful()) {
-                    if(registrationResponse.getResponse().equalsIgnoreCase("Email already exist")){
-                        showDialog(""+registrationResponse.getResponse(), true);
+                    if (registrationResponse.getResponse().equalsIgnoreCase("Email already exist")) {
+                        showDialog("" + registrationResponse.getResponse(), true);
                         cmn.closeDialog(RegisterDetails.this);
                     }
-                    if(registrationResponse.getResponse().equalsIgnoreCase("Mobile no already exist")){
-                        showDialog(""+registrationResponse.getResponse(), true);
+                    if (registrationResponse.getResponse().equalsIgnoreCase("Mobile no already exist")) {
+                        showDialog("" + registrationResponse.getResponse(), true);
                         cmn.closeDialog(RegisterDetails.this);
                     }
-                    if(registrationResponse.getResponse().equalsIgnoreCase("successfully registered")){
+                    if (registrationResponse.getResponse().equalsIgnoreCase("successfully registered")) {
                         showDialog("User Register Successfully..", true);
                         cmn.closeDialog(RegisterDetails.this);
                     }
-
                 }
             }
+
             @Override
             public void onFailure(Call<RegistrationResponse> call, Throwable t) {
             }
