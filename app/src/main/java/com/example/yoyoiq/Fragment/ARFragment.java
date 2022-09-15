@@ -119,7 +119,6 @@ public class ARFragment extends Fragment {
                     JSONObject jsonObjectTeamB = null;
                     try {
                         jsonObjectTeamB = new JSONObject(jsonArray1);
-                        Log.d("TAG", "onResponse: " + jsonObjectTeamB);
                         for (int i = 0; i < jsonObjectTeamB.length(); i++) {
                             team_idB = jsonObjectTeamB.getString("team_id");
                         }
@@ -131,8 +130,6 @@ public class ARFragment extends Fragment {
                     JSONObject jsonObjectTeamA = null;
                     try {
                         jsonObjectTeamA = new JSONObject(jsonArray);
-
-                        Log.d("TAG", "onResponse22: " + jsonObjectTeamA);
                         for (int i = 0; i < jsonObjectTeamA.length(); i++) {
                             team_idA = jsonObjectTeamA.getString("team_id");
                         }
@@ -146,7 +143,6 @@ public class ARFragment extends Fragment {
                         jsonArrayS = new JSONArray(jsonArray2);
                         for (int i = 0; i < jsonArrayS.length(); i++) {
                             JSONObject jsonObject = jsonArrayS.getJSONObject(i);
-                            Log.d("TAG", "onResponse33: " + jsonObject);
                             String tid = jsonObject.getString("tid");
                             if (tid.equals(team_idA) || tid.equals(team_idB)) {
                                 abbrA = jsonObject.getString("abbr");
@@ -159,21 +155,13 @@ public class ARFragment extends Fragment {
                     JSONArray jsonArrayA = null;
                     try {
                         jsonArrayA = new JSONArray(SquadsA);
-
-                        Log.d("TAG", "onResponse11: " + jsonArrayA);
                         for (int i = 0; i < jsonArrayA.length(); i++) {
                             JSONObject jsonObject = jsonArrayA.getJSONObject(i);
-                            avg_points = jsonObject.getString("avg_points");
-                            Log.d("TAG", "onResponse88: " + avg_points);
                             roleA = jsonObject.getString("role");
-
-                            Log.d("TAG", "onResponse99: " + roleA);
                             substituteA = jsonObject.getString("substitute");
                             role_strA = jsonObject.getString("role_str");
                             playing11A = jsonObject.getString("playing11");
                             nameA = jsonObject.getString("name");
-
-                            Log.d("TAG", "onResponse10: " + nameA);
                             if (roleA.equals("all")) {
                                 player_idA = jsonObject.getString("player_id");
                                 listPlayerIdA.add(player_idA);
@@ -183,8 +171,8 @@ public class ARFragment extends Fragment {
                         e.printStackTrace();
                     }
 
-                    JSONObject jsonObjectPlayers = null;
                     //----------------------for Players----------------------------
+                    JSONObject jsonObjectPlayers = null;
                     JSONArray jsonArrayPlayers = null;
                     JSONArray teamSquadsA = null;
                     JSONArray teamSquadsB = null;
@@ -222,9 +210,9 @@ public class ARFragment extends Fragment {
                             pidPlayers = jsonObjectPlayers.getString("pid");
                             playing_rolePlayers = jsonObjectPlayers.getString("playing_role");
                             if (playing_rolePlayers.equals("all")) {
+//                                avg_points = jsonObjectPlayers.getString("avg_points");
                                 short_namePlayers = jsonObjectPlayers.getString("short_name");
                                 fantasy_player_ratingPlayers = jsonObjectPlayers.getString("fantasy_player_rating");
-                                Log.d("TAG", "onResponse44: " + jsonObjectPlayers);
                                 if (allTeamAPlayerId.contains(pidPlayers)) {
                                     abbrA = matchA;
                                 } else if (allTeamBPlayerId.contains(pidPlayers)) {

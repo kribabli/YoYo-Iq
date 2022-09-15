@@ -1,7 +1,6 @@
 package com.example.yoyoiq.Fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,15 +38,13 @@ public class WKFragment extends Fragment {
     String team_idA, team_idB, matchA, matchB;
     ArrayList listPlayerIdA = new ArrayList();
     String fantasy_player_ratingPlayers, pidPlayers, playing_rolePlayers, short_namePlayers, abbrA;
-    String roleA,avg_points;
+    String roleA, avg_points;
     String substituteA;
     String role_strA;
     String playing11A;
     String nameA;
     String player_idA;
     public static String allTruePlayers = "";
-    Integer allselectedPlayerId;
-    ArrayList arrayList = new ArrayList();
 
     private String mParam1;
     private String mParam2;
@@ -87,7 +84,7 @@ public class WKFragment extends Fragment {
     }
 
     private void getAllPlayer() {
-        allSelectedPlayer=new Gson().fromJson(getArguments().getString("AllSelectedData"), new TypeToken<ArrayList<AllSelectedPlayerFromServer>>() {
+        allSelectedPlayer = new Gson().fromJson(getArguments().getString("AllSelectedData"), new TypeToken<ArrayList<AllSelectedPlayerFromServer>>() {
         }.getType());
         list.clear();
         listPlayerIdA.clear();
@@ -160,7 +157,6 @@ public class WKFragment extends Fragment {
                         jsonArrayA = new JSONArray(SquadsA);
                         for (int i = 0; i < jsonArrayA.length(); i++) {
                             JSONObject jsonObject = jsonArrayA.getJSONObject(i);
-                            avg_points = jsonObject.getString("avg_points");
                             roleA = jsonObject.getString("role");
                             substituteA = jsonObject.getString("substitute");
                             role_strA = jsonObject.getString("role_str");
@@ -215,12 +211,12 @@ public class WKFragment extends Fragment {
                         }
 
                         for (int i = 0; i < jsonArrayPlayers.length(); i++) {
-                            boolean isSelected=false;
+                            boolean isSelected = false;
                             jsonObjectPlayers = jsonArrayPlayers.getJSONObject(i);
                             pidPlayers = jsonObjectPlayers.getString("pid");
-
                             playing_rolePlayers = jsonObjectPlayers.getString("playing_role");
                             if (playing_rolePlayers.equals("wk")) {
+//                                avg_points = jsonObjectPlayers.getString("avg_points");
                                 short_namePlayers = jsonObjectPlayers.getString("short_name");
                                 fantasy_player_ratingPlayers = jsonObjectPlayers.getString("fantasy_player_rating");
                                 if (allTeamAPlayerId.contains(pidPlayers)) {
@@ -231,11 +227,11 @@ public class WKFragment extends Fragment {
                                 if (myMap.containsKey(pidPlayers)) {
                                     playing11A = myMap.get(pidPlayers);
                                 }
-                                SquadsA squadsA = new SquadsA(player_idA, roleA, substituteA, role_strA, playing11A, nameA, matchA, fantasy_player_ratingPlayers, short_namePlayers, pidPlayers, abbrA, isSelected,avg_points);
+                                SquadsA squadsA = new SquadsA(player_idA, roleA, substituteA, role_strA, playing11A, nameA, matchA, fantasy_player_ratingPlayers, short_namePlayers, pidPlayers, abbrA, isSelected, avg_points);
                                 list.add(squadsA);
                             }
                         }
-                        squadsAAdapter = new SquadsAAdapter(getContext(), list,allSelectedPlayer);
+                        squadsAAdapter = new SquadsAAdapter(getContext(), list, allSelectedPlayer);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         recyclerView.setAdapter(squadsAAdapter);
                         squadsAAdapter.notifyDataSetChanged();
@@ -245,6 +241,7 @@ public class WKFragment extends Fragment {
                 } else {
                 }
             }
+
             @Override
             public void onFailure(Call<ResponsePlayer> call, Throwable t) {
 

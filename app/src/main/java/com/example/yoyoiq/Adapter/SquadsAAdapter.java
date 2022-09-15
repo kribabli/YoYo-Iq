@@ -50,7 +50,7 @@ public class SquadsAAdapter extends RecyclerView.Adapter<SquadsAAdapter.MyViewHo
         SquadsA listData = list.get(position);
         holder.setIsRecyclable(false);
         holder.playerName.setText(listData.getShort_namePlayers());
-        holder.playerPoints.setText(listData.getAvg_points());
+//        holder.playerPoints.setText(listData.getAvg_points());
         holder.playerCredit.setText(listData.getFantasy_player_rating());
         holder.country.setText(listData.getAbbr());
 

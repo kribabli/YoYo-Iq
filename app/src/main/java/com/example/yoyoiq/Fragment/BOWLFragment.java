@@ -38,7 +38,7 @@ public class BOWLFragment extends Fragment {
     String matchA, matchB, team_idA, team_idB;
     ArrayList listPlayerIdA = new ArrayList();
     String fantasy_player_ratingPlayers, pidPlayers, playing_rolePlayers, short_namePlayers, abbrA;
-    String roleA,avg_points;
+    String roleA, avg_points;
     String substituteA;
     String role_strA;
     String playing11A;
@@ -83,7 +83,7 @@ public class BOWLFragment extends Fragment {
     }
 
     private void getAllPlayer() {
-        allSelectedPlayer=new Gson().fromJson(getArguments().getString("AllSelectedData"), new TypeToken<ArrayList<AllSelectedPlayerFromServer>>() {
+        allSelectedPlayer = new Gson().fromJson(getArguments().getString("AllSelectedData"), new TypeToken<ArrayList<AllSelectedPlayerFromServer>>() {
         }.getType());
         list.clear();
         listPlayerIdA.clear();
@@ -157,7 +157,6 @@ public class BOWLFragment extends Fragment {
                         jsonArrayA = new JSONArray(SquadsA);
                         for (int i = 0; i < jsonArrayA.length(); i++) {
                             JSONObject jsonObject = jsonArrayA.getJSONObject(i);
-                            avg_points = jsonObject.getString("avg_points");
                             roleA = jsonObject.getString("role");
                             substituteA = jsonObject.getString("substitute");
                             role_strA = jsonObject.getString("role_str");
@@ -206,11 +205,12 @@ public class BOWLFragment extends Fragment {
                         }
 
                         for (int i = 0; i < jsonArrayPlayers.length(); i++) {
-                            boolean isSelected=false;
+                            boolean isSelected = false;
                             jsonObjectPlayers = jsonArrayPlayers.getJSONObject(i);
                             pidPlayers = jsonObjectPlayers.getString("pid");
                             playing_rolePlayers = jsonObjectPlayers.getString("playing_role");
                             if (playing_rolePlayers.equals("bowl")) {
+//                                avg_points = jsonObjectPlayers.getString("avg_points");
                                 short_namePlayers = jsonObjectPlayers.getString("short_name");
                                 fantasy_player_ratingPlayers = jsonObjectPlayers.getString("fantasy_player_rating");
                                 if (allTeamAPlayerId.contains(pidPlayers)) {
@@ -222,12 +222,11 @@ public class BOWLFragment extends Fragment {
                                     playing11A = myMap.get(pidPlayers);
                                 }
 
-                                SquadsA squadsA = new SquadsA(player_idA, roleA, substituteA, role_strA, playing11A, nameA, matchA, fantasy_player_ratingPlayers, short_namePlayers, pidPlayers, abbrA, isSelected,avg_points);
+                                SquadsA squadsA = new SquadsA(player_idA, roleA, substituteA, role_strA, playing11A, nameA, matchA, fantasy_player_ratingPlayers, short_namePlayers, pidPlayers, abbrA, isSelected, avg_points);
                                 list.add(squadsA);
-                                bowlAdapter = new BOWLAdapter(getContext(), list,allSelectedPlayer);
+                                bowlAdapter = new BOWLAdapter(getContext(), list, allSelectedPlayer);
                             }
                         }
-
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         recyclerView.setAdapter(bowlAdapter);
                         bowlAdapter.notifyDataSetChanged();

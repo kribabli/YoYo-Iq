@@ -157,7 +157,6 @@ public class BATFragment extends Fragment {
                         jsonArrayA = new JSONArray(SquadsA);
                         for (int i = 0; i < jsonArrayA.length(); i++) {
                             JSONObject jsonObject = jsonArrayA.getJSONObject(i);
-                            avg_points = jsonObject.getString("avg_points");
                             roleA = jsonObject.getString("role");
                             substituteA = jsonObject.getString("substitute");
                             role_strA = jsonObject.getString("role_str");
@@ -211,6 +210,7 @@ public class BATFragment extends Fragment {
                             pidPlayers = jsonObjectPlayers.getString("pid");
                             playing_rolePlayers = jsonObjectPlayers.getString("playing_role");
                             if (playing_rolePlayers.equals("bat")) {
+//                                avg_points = jsonObjectPlayers.getString("avg_points");
                                 short_namePlayers = jsonObjectPlayers.getString("short_name");
                                 fantasy_player_ratingPlayers = jsonObjectPlayers.getString("fantasy_player_rating");
                                 if (allTeamAPlayerId.contains(pidPlayers)) {
