@@ -38,7 +38,7 @@ public class BOWLFragment extends Fragment {
     String matchA, matchB, team_idA, team_idB;
     ArrayList listPlayerIdA = new ArrayList();
     String fantasy_player_ratingPlayers, pidPlayers, playing_rolePlayers, short_namePlayers, abbrA;
-    String roleA;
+    String roleA,avg_points;
     String substituteA;
     String role_strA;
     String playing11A;
@@ -157,6 +157,7 @@ public class BOWLFragment extends Fragment {
                         jsonArrayA = new JSONArray(SquadsA);
                         for (int i = 0; i < jsonArrayA.length(); i++) {
                             JSONObject jsonObject = jsonArrayA.getJSONObject(i);
+                            avg_points = jsonObject.getString("avg_points");
                             roleA = jsonObject.getString("role");
                             substituteA = jsonObject.getString("substitute");
                             role_strA = jsonObject.getString("role_str");
@@ -221,7 +222,7 @@ public class BOWLFragment extends Fragment {
                                     playing11A = myMap.get(pidPlayers);
                                 }
 
-                                SquadsA squadsA = new SquadsA(player_idA, roleA, substituteA, role_strA, playing11A, nameA, matchA, fantasy_player_ratingPlayers, short_namePlayers, pidPlayers, abbrA, isSelected);
+                                SquadsA squadsA = new SquadsA(player_idA, roleA, substituteA, role_strA, playing11A, nameA, matchA, fantasy_player_ratingPlayers, short_namePlayers, pidPlayers, abbrA, isSelected,avg_points);
                                 list.add(squadsA);
                                 bowlAdapter = new BOWLAdapter(getContext(), list,allSelectedPlayer);
                             }

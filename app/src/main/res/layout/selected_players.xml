@@ -78,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="2"
+                android:id="@+id/playerPoints"
                 android:gravity="center"
                 android:text="0" />
 

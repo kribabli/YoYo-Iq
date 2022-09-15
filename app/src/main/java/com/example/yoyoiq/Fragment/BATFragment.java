@@ -38,7 +38,7 @@ public class BATFragment extends Fragment {
     String matchA, matchB, team_idA, team_idB;
     ArrayList listPlayerIdA = new ArrayList();
     String fantasy_player_ratingPlayers, pidPlayers, playing_rolePlayers, short_namePlayers, abbrA;
-    String roleA;
+    String roleA, avg_points;
     String substituteA;
     String role_strA;
     String playing11A;
@@ -84,7 +84,7 @@ public class BATFragment extends Fragment {
     }
 
     private void getAllPlayer() {
-        allSelectedPlayer=new Gson().fromJson(getArguments().getString("AllSelectedData"), new TypeToken<ArrayList<AllSelectedPlayerFromServer>>() {
+        allSelectedPlayer = new Gson().fromJson(getArguments().getString("AllSelectedData"), new TypeToken<ArrayList<AllSelectedPlayerFromServer>>() {
         }.getType());
         list.clear();
         listPlayerIdA.clear();
@@ -157,6 +157,7 @@ public class BATFragment extends Fragment {
                         jsonArrayA = new JSONArray(SquadsA);
                         for (int i = 0; i < jsonArrayA.length(); i++) {
                             JSONObject jsonObject = jsonArrayA.getJSONObject(i);
+                            avg_points = jsonObject.getString("avg_points");
                             roleA = jsonObject.getString("role");
                             substituteA = jsonObject.getString("substitute");
                             role_strA = jsonObject.getString("role_str");
@@ -205,7 +206,7 @@ public class BATFragment extends Fragment {
                         }
 
                         for (int i = 0; i < jsonArrayPlayers.length(); i++) {
-                            boolean isSelected=false;
+                            boolean isSelected = false;
                             jsonObjectPlayers = jsonArrayPlayers.getJSONObject(i);
                             pidPlayers = jsonObjectPlayers.getString("pid");
                             playing_rolePlayers = jsonObjectPlayers.getString("playing_role");
@@ -220,11 +221,11 @@ public class BATFragment extends Fragment {
                                 if (myMap.containsKey(pidPlayers)) {
                                     playing11A = myMap.get(pidPlayers);
                                 }
-                                SquadsA squadsA = new SquadsA(player_idA, roleA, substituteA, role_strA, playing11A, nameA, matchA, fantasy_player_ratingPlayers, short_namePlayers, pidPlayers, abbrA, isSelected);
+                                SquadsA squadsA = new SquadsA(player_idA, roleA, substituteA, role_strA, playing11A, nameA, matchA, fantasy_player_ratingPlayers, short_namePlayers, pidPlayers, abbrA, isSelected, avg_points);
                                 list.add(squadsA);
                             }
                         }
-                        squadsBAdapter = new SquadsBAdapter(getContext(), list,allSelectedPlayer);
+                        squadsBAdapter = new SquadsBAdapter(getContext(), list, allSelectedPlayer);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                         recyclerView.setAdapter(squadsBAdapter);
                         squadsBAdapter.notifyDataSetChanged();

@@ -28,8 +28,6 @@ import java.util.List;
 public class ARAdapter extends RecyclerView.Adapter<ARAdapter.MyViewHolder> {
     Context context;
     ArrayList<SquadsA> list;
-    boolean isEnable = false;
-    private int lastSelectedPosition = -1;
     private List<AllSelectedPlayerFromServer> allSelectedPlayer = new ArrayList<>();
 
     public ARAdapter(Context context, ArrayList<SquadsA> list, List<AllSelectedPlayerFromServer> allSelectedPlayer) {
@@ -50,6 +48,7 @@ public class ARAdapter extends RecyclerView.Adapter<ARAdapter.MyViewHolder> {
         SquadsA listData = list.get(position);
         holder.setIsRecyclable(false);
         holder.playerName.setText(listData.getShort_namePlayers());
+        holder.playerPoints.setText(listData.getAvg_points());
         holder.playerCredit.setText(listData.getFantasy_player_rating());
         holder.country.setText(listData.getAbbr());
 
@@ -175,12 +174,13 @@ public class ARAdapter extends RecyclerView.Adapter<ARAdapter.MyViewHolder> {
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView playerName, country, playerCredit, isPlaying;
+        TextView playerName, country, playerCredit, isPlaying, playerPoints;
         ImageView playerImg, alreadyAddedPlayer, im_AddPlayer;
         CardView cardViewSelected;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            playerPoints = itemView.findViewById(R.id.playerPoints);
             playerName = itemView.findViewById(R.id.playerName);
             country = itemView.findViewById(R.id.country);
             playerCredit = itemView.findViewById(R.id.tv_PlayerCredit);

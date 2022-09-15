@@ -13,8 +13,9 @@ public class SquadsA {
     String pidPlayers;
     String abbr;
     private boolean isSelected = false;
+    String avg_points;
 
-    public SquadsA(String player_id, String role, String substitute, String role_str, String playing11, String name, String matchAB, String fantasy_player_rating, String short_namePlayers, String pidPlayers, String abbr, boolean isSelected) {
+    public SquadsA(String player_id, String role, String substitute, String role_str, String playing11, String name, String matchAB, String fantasy_player_rating, String short_namePlayers, String pidPlayers, String abbr, boolean isSelected,String avg_points) {
         this.player_id = player_id;
         this.role = role;
         this.substitute = substitute;
@@ -27,6 +28,7 @@ public class SquadsA {
         this.pidPlayers = pidPlayers;
         this.abbr = abbr;
         this.isSelected = isSelected;
+        this.avg_points = avg_points;
     }
 
     public String getPlayer_id() {
@@ -123,5 +125,13 @@ public class SquadsA {
 
     public boolean isSelected() {
         return isSelected;
+    }
+
+    public String getAvg_points() {
+        return avg_points;
+    }
+
+    public void setAvg_points(String avg_points) {
+        this.avg_points = avg_points;
     }
 }
