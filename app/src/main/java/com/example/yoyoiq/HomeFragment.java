@@ -22,6 +22,11 @@ public class HomeFragment extends Fragment {
     ViewPager viewPager;
     FragmentManager childFragmentManager;
 
+    //icon for tabLayout
+    private int[] tabIcons = {
+            R.drawable.ic_baseline_sports_baseball_24
+    };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -30,23 +35,28 @@ public class HomeFragment extends Fragment {
         tabLayout = rootView.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         childFragmentManager = getChildFragmentManager();
-
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             View tab = ((ViewGroup) tabLayout.getChildAt(0)).getChildAt(i);
             ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) tab.getLayoutParams();
-            p.setMargins(20, 0, 20, 0);
+            p.setMargins(10, 0, 0, 0);
             tab.requestLayout();
         }
 
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
-
+        setupTabIcons();
         return rootView;
+    }
+
+    //Call the method for icon in tabLayout
+    private void setupTabIcons() {
+        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         final ViewPagerAdapter adapter = new ViewPagerAdapter(childFragmentManager);
-        adapter.addFragment(new CricketFragment(), "CRICKET");
+//        adapter.addFragment(new CricketFragment(), "CRICKET");
+        adapter.addFragment(new CricketFragment(), "Cricket");
         viewPager.setAdapter(adapter);
     }
 
