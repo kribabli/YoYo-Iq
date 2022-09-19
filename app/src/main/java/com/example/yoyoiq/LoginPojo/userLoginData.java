@@ -5,12 +5,14 @@ public class userLoginData {
     String username;
     String mobile_no;
     String email_id;
+    String referral_code;
 
-    public userLoginData(String user_id, String username, String mobile_no, String email_id) {
+    public userLoginData(String user_id, String username, String mobile_no, String email_id,String referral_code) {
         this.user_id = user_id;
         this.username = username;
         this.mobile_no = mobile_no;
         this.email_id = email_id;
+        this.referral_code = referral_code;
     }
 
 
@@ -44,5 +46,13 @@ public class userLoginData {
 
     public void setEmail_id(String email_id) {
         this.email_id = email_id;
+    }
+
+    public String getReferral_code() {
+        return referral_code;
+    }
+
+    public void setReferral_code(String referral_code) {
+        this.referral_code = referral_code;
     }
 }

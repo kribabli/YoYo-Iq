@@ -1,6 +1,7 @@
 package com.example.yoyoiq;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.multidex.BuildConfig;
 
 import android.content.Intent;
 import android.os.Bundle;

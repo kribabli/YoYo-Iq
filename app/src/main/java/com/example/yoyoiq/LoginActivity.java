@@ -242,6 +242,7 @@ public class LoginActivity extends AppCompatActivity {
                                 HelperData.UserName = username;
                                 HelperData.Usermobile = mobile_no;
                                 HelperData.UserEmail = email_id;
+                                HelperData.referral_code = jsonObject.getString("referral_code");
                                 UserData userData = new UserData(username, mobile_no, email_id, user_id);
                                 sessionManager.saveUser(userData);
                                 Toast.makeText(LoginActivity.this, "Login Successfully..", Toast.LENGTH_SHORT).show();
