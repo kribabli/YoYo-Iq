@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.yoyoiq.common.HelperData;
+
 public class InviteFriends extends AppCompatActivity {
     TextView backPress, INVITE;
 
@@ -50,7 +52,7 @@ public class InviteFriends extends AppCompatActivity {
                     shareIntent.putExtra(Intent.EXTRA_SUBJECT, "YoYoIQ");
                     String shareMessage = "\nLet me recommend you this application\n";
                     shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "";
-                    shareMessage = shareMessage + "\n1.Use my invite code ......\n2.Get discounts\n";
+                    shareMessage = shareMessage + "\n1.Use my invite code " + HelperData.referral_code + "\n2.Get discounts\n";
                     shareMessage = shareMessage + "\nLet the games begin!";
                     shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
                     startActivity(Intent.createChooser(shareIntent, "choose one"));

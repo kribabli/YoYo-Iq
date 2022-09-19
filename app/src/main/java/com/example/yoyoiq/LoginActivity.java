@@ -143,6 +143,7 @@ public class LoginActivity extends AppCompatActivity {
                         HelperData.UserName = userName;
                         HelperData.UserEmail = userEmail;
                         HelperData.UserId = userId;
+                        HelperData.referral_code = jsonObject.getString("referral_code");
                         UserData userData = new UserData(userName, "", userEmail, userId);
                         sessionManager.saveUser(userData);
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -162,6 +163,7 @@ public class LoginActivity extends AppCompatActivity {
                         HelperData.UserName = userName;
                         HelperData.UserEmail = userEmail;
                         HelperData.UserId = userId;
+                        HelperData.referral_code = jsonObject.getString("referral_code");
                         UserData userData = new UserData(userName, "", userEmail, userId);
                         sessionManager.saveUser(userData);
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -190,13 +192,6 @@ public class LoginActivity extends AppCompatActivity {
 
         };
         queue.add(stringRequest);
-    }
-
-    private void navigateToSecondActivity() {
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        intent.putExtra("checkData", true);
-        startActivity(intent);
-        finish();
     }
 
     private boolean dataValidation() {

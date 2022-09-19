@@ -8,11 +8,9 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.yoyoiq.KYC.KYCActivity;
 import com.example.yoyoiq.LoginPojo.LoginResponse;
 import com.example.yoyoiq.LoginPojo.RegistrationResponse;
 import com.example.yoyoiq.LoginPojo.userLoginData;
@@ -26,17 +24,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -224,7 +217,7 @@ public class RegisterDetails extends AppCompatActivity {
                         showDialog("" + registrationResponse.getResponse(), true);
                         cmn.closeDialog(RegisterDetails.this);
                     }
-                    if (registrationResponse.getResponse().equalsIgnoreCase("successfully registered")) {
+                    if (registrationResponse.getResponse().equalsIgnoreCase("Registration Successfully")) {
                         showDialog("User Register Successfully..", true);
                         cmn.closeDialog(RegisterDetails.this);
                     }
