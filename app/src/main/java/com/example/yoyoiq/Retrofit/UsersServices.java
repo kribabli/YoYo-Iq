@@ -8,6 +8,7 @@ import com.example.yoyoiq.KYC.KycAddedPostResponse;
 import com.example.yoyoiq.KYC.ViewKycResponse;
 import com.example.yoyoiq.LoginPojo.LoginResponse;
 import com.example.yoyoiq.LoginPojo.RegistrationResponse;
+import com.example.yoyoiq.Model.ReferCode;
 import com.example.yoyoiq.OnlyMyContestPOJO.MyContest1;
 import com.example.yoyoiq.PlayerPOJO.ResponsePlayer;
 import com.example.yoyoiq.PlayerPOJO.UpdatedTeamResponse;
@@ -90,6 +91,12 @@ public interface UsersServices {
     Call<LoginResponse> getUserLoginData(
             @Field("email_or_mobile") String mobile_no,
             @Field("password") String password
+    );
+
+    @FormUrlEncoded
+    @POST("reffer")
+    Call<ReferCode> getReferCode(
+            @Field("referral_code") String referral_code
     );
 
     @FormUrlEncoded
