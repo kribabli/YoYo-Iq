@@ -120,7 +120,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/header_profile"
         app:itemTextAppearance="?android:attr/textAppearanceMedium"
         app:menu="@menu/navigation_drawer" />
 
