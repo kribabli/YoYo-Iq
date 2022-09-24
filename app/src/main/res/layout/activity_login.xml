@@ -56,6 +56,9 @@
                 android:id="@+id/mobileNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:maxEms="1"
+                android:lines="1"
                 android:hint="Mobile No." />
 
             <EditText

@@ -80,8 +80,8 @@ public interface UsersServices {
     @FormUrlEncoded
     @POST("registration")
     Call<RegistrationResponse> SendUserDetails_server(
-            @Field("mobile_no") String mobile_no,
-            @Field("username") String username,
+            @Field("mobile") String mobile_no,
+            @Field("name") String username,
             @Field("email") String email,
             @Field("password") String password
     );
