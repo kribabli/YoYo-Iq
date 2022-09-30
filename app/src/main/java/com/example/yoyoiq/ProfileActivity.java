@@ -81,10 +81,7 @@ public class ProfileActivity extends AppCompatActivity {
         share = findViewById(R.id.share);
         sessionManager = new SessionManager(getApplicationContext());
 
-        Log.d("Amit","Value2 "+sessionManager.getUserData().getMobileNo());
-        Log.d("Amit","Value3 "+sessionManager.getUserData().getUserName());
-        Log.d("Amit","Value4 "+sessionManager.getUserData().getEmailId());
-        Log.d("Amit","Value5 "+sessionManager.getUserData().getUser_id());
+
 
 
         userName.setText(""+sessionManager.getUserData().getUserName());
@@ -173,8 +170,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void setProfileDetails() {
-
-
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, gso);
         GoogleSignInAccount googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this);

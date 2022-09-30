@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class SessionManager {
     private static String SHARED_PREF_NAME1 = "YoyoIq_UserDetails_from_Server";
+    private static String SHARED_PREF_NAME2 = "Image";
     private SharedPreferences sharedPreferences;
     Context context;
     private SharedPreferences.Editor editor;
@@ -49,14 +50,14 @@ public class SessionManager {
     }
 
     public void saveProfileImage(Uri Image){
-        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME1, Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME2, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         editor.putString("UserprofileImage", String.valueOf(Image));
         editor.apply();
     }
 
     public Uri getUserProfileImage(){
-        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME1, Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME2, Context.MODE_PRIVATE);
         return Uri.parse(sharedPreferences.getString("UserprofileImage", ""));
     }
 }

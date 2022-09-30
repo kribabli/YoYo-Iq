@@ -228,7 +228,7 @@
                                 android:layout_marginTop="@dimen/_5sdp"
                             android:inputType="text"
                             android:textColor="@color/black"
-                            android:text="Not Kyc completed"
+                            android:text="Kyc Not Completed"
                             android:id="@+id/userDate_of_Birth"
                             />
 
