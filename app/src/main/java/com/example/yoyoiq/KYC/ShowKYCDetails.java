@@ -93,51 +93,6 @@ public class ShowKYCDetails extends AppCompatActivity {
             common.showAlertDialog("Alert!", "Please Upload Your Kyc Data Again", false, ShowKYCDetails.this);
         }
 
-//        databaseConnectivity.getDatabasePath(ShowKYCDetails.this).child("KYCDetails")
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//                            if (dataSnapshot.getKey().equals(loggedInUserNumber)) {
-//                                String panCard = dataSnapshot.child("panCard").getValue().toString();
-//                                String accountNo = dataSnapshot.child("accountNo").getValue().toString();
-//                                status = Integer.parseInt(dataSnapshot.child("status").getValue().toString());
-//                                mobileNo.setText(loggedInUserNumber);
-//                                emailId.setText(sharedPreferences.getString("emailId", ""));
-//                                panCardNo.setText(panCard);
-//                                bankAccountNo.setText(accountNo);
-//                            }
-//                        }
-//                        if (status == 1) {
-//                            mobileStatus.setTextColor(Color.parseColor("#ECBD15"));
-//                            mobileStatus.setText("Pending");
-//                            emailStatus.setTextColor(Color.parseColor("#ECBD15"));
-//                            emailStatus.setText("Pending");
-//                            panStatus.setTextColor(Color.parseColor("#ECBD15"));
-//                            panStatus.setText("Pending");
-//                            accountStatus.setTextColor(Color.parseColor("#ECBD15"));
-//                            accountStatus.setText("Pending");
-//
-//
-//                        } else if (status == 2) {
-//                            mobileStatus.setTextColor(Color.parseColor("#109E38"));
-//                            mobileStatus.setText("Verified");
-//                            emailStatus.setTextColor(Color.parseColor("#109E38"));
-//                            emailStatus.setText("Verified");
-//                            panStatus.setTextColor(Color.parseColor("#109E38"));
-//                            panStatus.setText("Verified");
-//                            accountStatus.setTextColor(Color.parseColor("#109E38"));
-//                            accountStatus.setText("Verified");
-//
-//                        }
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
         common.closeDialog(ShowKYCDetails.this);
     }
 }

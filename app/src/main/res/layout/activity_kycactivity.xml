@@ -234,7 +234,6 @@
                         android:layout_height="40dp"
                         android:background="@drawable/designborder"
                         android:drawablePadding="4dp"
-                        android:maxLength="12"
                         android:hint="Enter your Address"
                         android:inputType="text"
                         android:padding="7dp" />
@@ -245,14 +244,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:layout_margin="10dp"
                     android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:text="PanImage.*"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
 
                     <ImageView
                         android:id="@+id/pancard_img"
                         android:layout_width="match_parent"
+                        android:background="@drawable/designborder"
                         android:layout_height="140dp"
                         android:layout_gravity="center"
-                        android:layout_margin="15dp"
                         android:layout_weight="10"
                         android:scaleType="fitXY" />
 
@@ -260,6 +268,44 @@
                         android:id="@+id/camera1"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
+                        android:textStyle="bold"
+                        android:layout_gravity="center"
+                        android:background="@drawable/ic_baseline_camera_alt_24"
+                        android:backgroundTint="@color/teal_700"
+                        android:gravity="center" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="10dp"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:text="AadharImage.*"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/aadhar_card_Image"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/designborder"
+                        android:layout_height="140dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="10"
+                        android:scaleType="fitXY" />
+
+                    <TextView
+                        android:id="@+id/adharImageCamera"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:textStyle="bold"
                         android:layout_gravity="center"
                         android:background="@drawable/ic_baseline_camera_alt_24"
                         android:backgroundTint="@color/teal_700"

@@ -1,19 +1,24 @@
 package com.example.yoyoiq.KYC;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,7 +27,8 @@ import com.example.yoyoiq.common.DatabaseConnectivity;
 import com.example.yoyoiq.common.HelperData;
 import com.example.yoyoiq.common.SessionManager;
 import com.example.yoyoiq.common.SharedPrefManager;
-import com.github.drjacky.imagepicker.ImagePicker;
+import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.github.dhaval2404.imagepicker.util.FileUriUtils;
 import com.github.drjacky.imagepicker.constant.ImageProvider;
 
 import org.jetbrains.annotations.NotNull;
@@ -39,22 +45,21 @@ import kotlin.jvm.functions.Function1;
 import kotlin.jvm.internal.Intrinsics;
 
 public class KYCActivity extends AppCompatActivity {
-    private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
-    TextView backPress, camera1, date_of_birth;
+
+    TextView backPress, camera1, date_of_birth,adharImageCamera;
     EditText fullName, accountNo, retypeAccount, bankName, ifscCode, panCard, aadharNo, address_ed;
     Button submit;
     DatabaseConnectivity common = DatabaseConnectivity.getInstance();
     SharedPrefManager sharedPrefManager;
     String loggedInUserNumber;
-    ImageView imageViewPan;
-    Bitmap bitmap;
-    String fileName = "";
-    String pan_image_path = "";
+    ImageView imageViewPan,aadhar_card_Image;
     String code = "";
     SessionManager sessionManager;
     private DatePickerDialog datePickerDialog;
     private Boolean clickable = true;
     String date = "", year = "", month = "";
+    int PICK_IMAGE_MULTIPLE = 100;
+    String pan_img_path = "", aadhar_img_path = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +69,7 @@ public class KYCActivity extends AppCompatActivity {
         setAction();
         loggedInUserNumber = sharedPrefManager.getUserData().getMobileNo();
         sessionManager = new SessionManager(getApplicationContext());
+        Log.d("Amit","Value "+sessionManager.getUserData().getUser_id());
 
     }
 
@@ -82,6 +88,8 @@ public class KYCActivity extends AppCompatActivity {
         submit = findViewById(R.id.submitBtn);
         address_ed = findViewById(R.id.address_ed);
         date_of_birth = findViewById(R.id.date_of_birth);
+        adharImageCamera = findViewById(R.id.adharImageCamera);
+        aadhar_card_Image = findViewById(R.id.aadhar_card_Image);
     }
 
     private void setAction() {
@@ -89,7 +97,6 @@ public class KYCActivity extends AppCompatActivity {
 
         camera1.setOnClickListener(view -> {
             callCamera();
-
         });
 
         submit.setOnClickListener(view -> buttonValidation());
@@ -120,42 +127,51 @@ public class KYCActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+
+        adharImageCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CallCameraForAdharImage();
+            }
+        });
     }
+
 
     private void callCamera() {
-        code = "panImage";
-        ImagePicker.Companion.with(KYCActivity.this).crop().cropFreeStyle().
-                maxResultSize(1080, 1080, true).provider(ImageProvider.BOTH).createIntentFromDialog((Function1) (new Function1() {
-                    public Object invoke(Object var1) {
-                        this.invoke((Intent) var1);
-                        return Unit.INSTANCE;
-                    }
+        code = "pan";
+        ImagePicker.with(KYCActivity.this)
+                .crop(16f, 9f)
+                .start();
 
-                    public final void invoke(@NotNull Intent it) {
-                        Intrinsics.checkNotNullParameter(it, "it");
-                        launcher.launch(it);
-                    }
-                }));
     }
 
-    ActivityResultLauncher<Intent> launcher =
-            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), (ActivityResult result) -> {
-                if (result.getResultCode() == RESULT_OK) {
-                    Uri uri = result.getData().getData();
-                    pan_image_path = String.valueOf(uri);
-                    InputStream inputStream = null;
-                    try {
-                        inputStream = getContentResolver().openInputStream(result.getData().getData());
-                        bitmap = BitmapFactory.decodeStream(inputStream);
-                        imageViewPan.setImageBitmap(bitmap);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+    private void CallCameraForAdharImage() {
+        code = "adhar";
+        ImagePicker.with(KYCActivity.this)
+                .crop(16f, 9f)
+                .start();
+    }
 
-                } else if (result.getResultCode() == ImagePicker.RESULT_ERROR) {
-
-                }
-            });
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (code.equalsIgnoreCase("pan")) {
+                pan_img_path = FileUriUtils.INSTANCE.getRealPath(this, data.getData());
+                Uri selectedImage = data.getData();
+                imageViewPan.setImageURI(selectedImage);
+            } else if (code.equalsIgnoreCase("adhar")) {
+                aadhar_img_path = FileUriUtils.INSTANCE.getRealPath(this, data.getData());
+                Uri selectedImage1 = data.getData();
+                aadhar_card_Image.setImageURI(selectedImage1);
+            }
+        }
+        else if (resultCode == ImagePicker.RESULT_ERROR) {
+            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Image Selecting Error...", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private boolean buttonValidation() {
         boolean isValid = true;
@@ -208,7 +224,13 @@ public class KYCActivity extends AppCompatActivity {
             } else if (imageViewPan.getDrawable() == null) {
                 common.showAlertDialog("Alert", "Click Picture of PANCard", false, this);
                 isValid = false;
-            } else if (aadharNo.getText().toString().trim().length() == 0) {
+            }
+            else if (aadhar_card_Image.getDrawable() == null) {
+                common.showAlertDialog("Alert", "Click Picture of Aadhar Card", false, this);
+                isValid = false;
+            }
+
+            else if (aadharNo.getText().toString().trim().length() == 0) {
                 aadharNo.setError("Please enter Aadhar");
                 aadharNo.requestFocus();
                 isValid = false;
@@ -227,10 +249,11 @@ public class KYCActivity extends AppCompatActivity {
     }
 
     private void send_kyc_Details_OnServer() {
+
         HelperData.uploadFile(KYCActivity.this, sessionManager.getUserData().getUser_id(), fullName.getText().toString(), accountNo.getText().toString(),
-                ifscCode.getText().toString(), bankName.getText().toString(), date_of_birth.getText().toString(), address_ed.getText().toString(), aadharNo.getText().toString(), panCard.getText().toString(), pan_image_path);
+                ifscCode.getText().toString(), bankName.getText().toString(), date_of_birth.getText().toString(), address_ed.getText().toString(), aadharNo.getText().toString(), panCard.getText().toString(), pan_img_path,aadhar_img_path);
         common.closeDialog(KYCActivity.this);
-        showDialog("Details Saved..", true);
+//        showDialog("Details Saved..", true);
         fullName.setText("");
         accountNo.setText("");
         retypeAccount.setText("");
@@ -240,26 +263,8 @@ public class KYCActivity extends AppCompatActivity {
         aadharNo.setText("");
     }
 
-    private void insertKYCDetails() {
-        String fullName1 = fullName.getText().toString().trim();
-        String accountNo1 = accountNo.getText().toString().trim();
-        String retypeAccount1 = retypeAccount.getText().toString().trim();
-        String bankName1 = bankName.getText().toString().trim();
-        String ifscCode1 = ifscCode.getText().toString().trim();
-        String panCard1 = panCard.getText().toString().trim();
-        String aadharNo1 = aadharNo.getText().toString().trim();
-
-        HashMap<String, Object> data = new HashMap<>();
-        data.put("fullName", fullName1);
-        data.put("accountNo", accountNo1);
-        data.put("bankName", bankName1);
-        data.put("ifscCode", ifscCode1);
-        data.put("panCard", panCard1);
-        data.put("aadharNo", aadharNo1);
-        data.put("status", 1);
 
 
-    }
 
     public void showDialog(String message, Boolean isFinish) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

@@ -1,6 +1,7 @@
 package com.example.yoyoiq.Fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,6 +40,10 @@ public class CricketFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
     ArrayList<TotalHomeData> list = new ArrayList<>();
     ArrayList<The_Slide_Items_Model_Class> listItems = new ArrayList<>();
+    int currentPage = 0;
+    Timer timer;
+    final long DELAY_MS = 1000;//delay in milliseconds before task is to be executed
+    final long PERIOD_MS = 3000;
 
     public CricketFragment() {
         // Required empty public constructor
@@ -95,6 +102,20 @@ public class CricketFragment extends Fragment {
                             view_bannerItem.setAdapter(bannerAdapter);
                             bannerAdapter.notifyDataSetChanged();
                         }
+                        final Handler handler = new Handler();
+                        final Runnable Update = () -> {
+                            if (currentPage == jsonArray.length()) {
+                                currentPage = 0;
+                            }
+                            view_bannerItem.setCurrentItem(currentPage++, true);
+                        };
+                        timer = new Timer(); // This will create a new Thread
+                        timer.schedule(new TimerTask() { // task to be scheduled
+                            @Override
+                            public void run() {
+                                handler.post(Update);
+                            }
+                        }, DELAY_MS, PERIOD_MS);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -166,7 +187,6 @@ public class CricketFragment extends Fragment {
                     swipeRefreshLayout.setRefreshing(false);
                 }
             }
-
             @Override
             public void onFailure(Call<UpcommingResponse> call, Throwable t) {
                 swipeRefreshLayout.setRefreshing(false);

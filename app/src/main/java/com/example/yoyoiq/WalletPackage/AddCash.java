@@ -2,6 +2,7 @@ package com.example.yoyoiq.WalletPackage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -158,7 +159,6 @@ public class AddCash extends AppCompatActivity implements PaymentStatusListener 
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<ViewBalanceResponse> call, Throwable t) {
 
@@ -207,8 +207,8 @@ public class AddCash extends AppCompatActivity implements PaymentStatusListener 
                 amount.requestFocus();
                 isValid = false;
             } else {
-//                paymentMethod();
-                UpiPaymentMethod();
+                paymentMethod();
+//                UpiPaymentMethod();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -275,19 +275,19 @@ public class AddCash extends AppCompatActivity implements PaymentStatusListener 
                 PostBalanceResponse postBalanceResponse = response.body();
                 if (response.isSuccessful()) {
                     if (postBalanceResponse.getResponse().toString().equalsIgnoreCase("successfully added")) {
+                        Log.d("Amit","Value11 "+postBalanceResponse.getResponse());
                         loadBalanceDataFromServer();
                         amount.setText("");
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<PostBalanceResponse> call, Throwable t) {
+                Log.d("Amit","Value11 "+t);
 
             }
         });
     }
-
 
     @Override
     public void onTransactionCompleted(TransactionDetails transactionDetails) {

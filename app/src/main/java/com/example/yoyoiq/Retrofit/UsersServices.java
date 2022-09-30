@@ -21,11 +21,15 @@ import com.example.yoyoiq.WalletPackage.ViewTransactionHistoryResponse;
 
 import org.json.JSONObject;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 public interface UsersServices {
 
@@ -160,19 +164,20 @@ public interface UsersServices {
             @Field("team_id") String team_id
     );
 
-    @FormUrlEncoded
+    @Multipart
     @POST("addkycdetail")
     Call<KycAddedPostResponse> sendKycDetailsOnServer(
-            @Field("user_id") String userid,
-            @Field("fullname") String fullName,
-            @Field("account_no") String accountNo,
-            @Field("ifsc_code") String ifsc,
-            @Field("bank_name") String bankName,
-            @Field("dob") String dob,
-            @Field("address") String address,
-            @Field("adhar_no") String adhar_no,
-            @Field("pancard_no") String pan,
-            @Field("pancard") String pancard
+            @Part("user_id") RequestBody userid,
+            @Part("fullname") RequestBody fullName,
+            @Part("account_no") RequestBody accountNo,
+            @Part("ifsc_code") RequestBody ifsc,
+            @Part("bank_name") RequestBody bankName,
+            @Part("dob") RequestBody dob,
+            @Part("address") RequestBody address,
+            @Part("adhar_no") RequestBody adhar_no,
+            @Part("pancard_no") RequestBody pan,
+            @Part MultipartBody.Part pancard,
+            @Part MultipartBody.Part adhar
     );
 
     @FormUrlEncoded

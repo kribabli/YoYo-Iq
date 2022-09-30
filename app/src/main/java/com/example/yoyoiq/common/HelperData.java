@@ -2,6 +2,8 @@ package com.example.yoyoiq.common;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -79,15 +81,26 @@ public class HelperData {
         CreateTeamActivity.addedPlayerIds = "";
     }
 
-    public static void uploadFile(Context context, String user_Id, String fullName, String accountNo, String ifsc, String bankName, String date_of_birth, String address_ed, String aadhar, String pan, String pan_img_path) {
-        MultipartBody.Part fileToUpload1 = null;
+    public static void uploadFile(Context context, String user_Id, String fullName, String accountNo, String ifsc, String bankName, String date_of_birth, String address_ed, String aadhar, String pan, String pan_img_path,String adhar_image_path) {
         ProgressDialog progressDialog = new ProgressDialog(context);
-        File myFile1 = new File(pan_img_path);
         progressDialog.show();
         progressDialog.setTitle("Please wait..");
 
-        RequestBody requestBody1 = RequestBody.create(MediaType.parse("multipart/form-data"), myFile1);
-        MultipartBody.Part fileToUpload2 = MultipartBody.Part.createFormData("pan_img", myFile1.getName(), requestBody1);
+        MultipartBody.Part fileToUpload1 = null;
+        File myFile1 = new File(pan_img_path);
+        Log.d("Amit","Value PanImage  "+pan_img_path);
+
+        RequestBody requestBody1 = RequestBody.create(MediaType.parse("*/*"), myFile1);
+        fileToUpload1 = MultipartBody.Part.createFormData("pancard", myFile1.getName(), requestBody1);
+
+        MultipartBody.Part fileToUpload2 = null;
+        File myFile2 = new File(adhar_image_path);
+        Log.d("Amit","adhar "+adhar_image_path);
+
+        RequestBody requestBody2 = RequestBody.create(MediaType.parse("*/*"), myFile2);
+        fileToUpload2 = MultipartBody.Part.createFormData("adhar", myFile2.getName(), requestBody2);
+
+
 
         RequestBody user_id = RequestBody.create(MediaType.parse("multipart/form-data"), user_Id);
         RequestBody full_name = RequestBody.create(MediaType.parse("multipart/form-data"), fullName);
@@ -100,8 +113,8 @@ public class HelperData {
         RequestBody address = RequestBody.create(MediaType.parse("multipart/form-data"), address_ed);
         RequestBody DOB = RequestBody.create(MediaType.parse("multipart/form-data"), date_of_birth);
 
-        Call<KycAddedPostResponse> call = ApiClient.getInstance().getApi().sendKycDetailsOnServer(user_Id, fullName, accountNo,
-                ifsc, bankName, date_of_birth, address_ed, aadhar, pan, pan_img_path);
+        Call<KycAddedPostResponse> call = ApiClient.getInstance().getApi().sendKycDetailsOnServer(user_id, full_name, account_no,
+                ifsc_code, bank_name, DOB, address, aadhar_no, pancard_no, fileToUpload1,fileToUpload2);
 
         call.enqueue(new Callback<KycAddedPostResponse>() {
             @Override
@@ -109,12 +122,15 @@ public class HelperData {
                 KycAddedPostResponse kycAddedPostResponse = response.body();
                 if (response.isSuccessful()) {
                     String data = new Gson().toJson(kycAddedPostResponse.getResponse());
+                    Log.d("Amit","Value11 "+data);
                     progressDialog.dismiss();
                 }
             }
-
             @Override
             public void onFailure(Call<KycAddedPostResponse> call, Throwable t) {
+                Log.d("Amit","Value111 "+t);
+                progressDialog.dismiss();
+
 
             }
         });

@@ -2,6 +2,7 @@ package com.example.yoyoiq.common;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 
 import com.example.yoyoiq.LoginPojo.userLoginData;
 import com.example.yoyoiq.Model.UserData;
@@ -45,5 +46,17 @@ public class SessionManager {
         editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
+    }
+
+    public void saveProfileImage(Uri Image){
+        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME1, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putString("UserprofileImage", String.valueOf(Image));
+        editor.apply();
+    }
+
+    public Uri getUserProfileImage(){
+        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME1, Context.MODE_PRIVATE);
+        return Uri.parse(sharedPreferences.getString("UserprofileImage", ""));
     }
 }
