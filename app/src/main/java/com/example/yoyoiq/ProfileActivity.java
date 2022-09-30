@@ -87,6 +87,7 @@ public class ProfileActivity extends AppCompatActivity {
         userName.setText(""+sessionManager.getUserData().getUserName());
         userEmail.setText(""+sessionManager.getUserData().getEmailId());
         phone.setText(""+sessionManager.getUserData().getMobileNo());
+        Log.d("Amit","vAlue "+sessionManager.getUserProfileImage());
 
         if(sessionManager.getUserProfileImage()!=null){
             userProfile.setImageURI(sessionManager.getUserProfileImage());
